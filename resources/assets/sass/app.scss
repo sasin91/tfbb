@@ -1,0 +1,31 @@
+// @import "./spark/spark";
+@import "./../../../vendor/laravel/spark-aurelius/resources/assets/sass/spark";
+
+.navbar-seamless {
+	box-shadow: 1px 1px 3px #f4f5f6;
+}
+
+.clickable {
+	cursor: pointer;
+}
+
+.ql-snow {
+	background-color: white;
+}
+ 
+.modal-dialog--wide {
+    max-width: 80%;
+	margin: 1.75rem auto;
+}
+
+.bg-none {
+	background: none;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}

@@ -1,0 +1,1 @@
+Videos has been merged into Workout & Exercise respectively
