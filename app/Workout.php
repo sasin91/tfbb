@@ -3,8 +3,11 @@
 namespace App;
 
 use App\Concerns\Commentable;
-use App\Concerns\RoutesUsingSlug;
 use App\Concerns\GeneratesSummaryByClampingBody;
+use App\Concerns\RoutesUsingSlug;
+use App\Events\Workout\WorkoutCreated;
+use App\Events\Workout\WorkoutDeleted;
+use App\Events\Workout\WorkoutUpdated;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
@@ -29,6 +32,12 @@ class Workout extends Model implements HasMediaConversions
     ];
 
     protected $appends = ['link'];
+
+    protected $dispatchesEvents = [
+        'created' => WorkoutCreated::class,
+        'updated' => WorkoutUpdated::class,
+        'deleted' => WorkoutDeleted::class
+    ];
 
     /**
      * Get the URL to this workout
