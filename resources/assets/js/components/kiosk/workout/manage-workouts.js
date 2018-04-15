@@ -1,8 +1,7 @@
 import ManageWorkoutModal from './manage-workout-modal.vue';
-import NewWorkoutModal from './new-workout-modal.vue';
 
 Vue.component('kiosk-manage-workouts', {
-	components: {ManageWorkoutModal, NewWorkoutModal},
+	components: {ManageWorkoutModal},
 
 	mounted () {
 		const self = this;

@@ -68,7 +68,7 @@
 						</form>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<a :href="recording.link" class="btn btn-link">Go to recording</a>
 					    <button class="btn btn-primary" @click.prevent="update" :disabled="form.busy">
 					        <span v-if="form.busy">
 					            <i class="fa fa-btn fa-spinner fa-spin"></i> Updating

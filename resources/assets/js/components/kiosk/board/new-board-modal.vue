@@ -72,7 +72,8 @@
 				Spark.post('/api/boards', this.boardForm)
 					.then(() => {
 						this.hide()
-						swal('Done', 'The board has been created!', 'success')
+
+						window.location.reload()
 					})
 			}
 		}

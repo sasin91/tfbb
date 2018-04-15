@@ -54,8 +54,15 @@
 
                         <li class="nav-item ">
                             <a class="nav-link" href="#recordings" aria-controls="recordings" role="tab" data-toggle="tab">
-                                <i class="fa fa-video"></i>
+                                <i class="fas fa-video"></i>
                                 {{__('Recordings')}}
+                            </a>
+                        </li>
+
+                        <li class="nav-item ">
+                            <a class="nav-link" href="#offers" aria-controls="offers" role="tab" data-toggle="tab">
+                                <i class="fas fa-money-bill-alt"></i>
+                                {{__('Offers')}}
                             </a>
                         </li>
                     </ul>
@@ -93,6 +100,11 @@
                     <!-- Recording Management -->
                     <div role="tabcard" class="tab-pane" id="recordings">
                         @include('kiosk.recordings')
+                    </div>
+
+                    <!-- Offer Management -->
+                    <div role="tabcard" class="tab-pane" id="offers">
+                        @include('kiosk.offers')
                     </div>
                 </div>
             </div>

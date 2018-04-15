@@ -163,7 +163,8 @@
 
 <script>
 	import { orderBy, forEach, union } from 'lodash';
-	import { photo, formDataArray } from '../../helpers';
+	import { formDataArray } from '../../helpers';
+	import Photo from '../../photo';
 	import Spinner from '../../spinner.vue';
 	import PhotoPreview from '../../photo-preview.vue';
 	import VideoPlayer from '../../video-player.vue';
@@ -241,7 +242,7 @@
 				let formData = new FormData;
 
 				for (var i = 0; i < inputEvent.target.files.length; i++) {
-					const result = await photo(inputEvent.target.files[i]);
+					const result = await new Photo(inputEvent.target.files[i]).prepareForUpload();
 
 					formData.append(`photos[${i}]`, result.photo);
 				}

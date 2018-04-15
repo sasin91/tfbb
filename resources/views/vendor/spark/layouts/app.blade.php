@@ -22,7 +22,12 @@
     <!-- Global Spark Object -->
     <script>
         window.Spark = <?php echo json_encode(array_merge(
-            Spark::scriptVariables(), []
+            Spark::scriptVariables(), [
+                'algolia' => [
+                    'id' => config('services.algolia.id'),
+                    'secret' => config('services.algolia.secret')
+                ],
+            ]
         )); ?>;
     </script>
 </head>
@@ -45,6 +50,8 @@
             @include('spark::modals.notifications')
             @include('spark::modals.support')
             @include('spark::modals.session-expired')
+            <photo-modal></photo-modal>
+            <search-modal></search-modal>
         @endif
     </div>
 

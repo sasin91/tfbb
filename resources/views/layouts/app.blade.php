@@ -64,10 +64,9 @@
             @include('spark::modals.notifications')
             @include('spark::modals.support')
             @include('spark::modals.session-expired')
+            <photo-modal></photo-modal>
+            <search-modal></search-modal>
         @endif
-
-        <photo-modal></photo-modal>
-        <search-modal></search-modal>
     </div>
 
     <!-- JavaScript -->

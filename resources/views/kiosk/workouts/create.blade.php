@@ -1,10 +1,8 @@
-<kiosk-create-recording inline-template>
+<kiosk-create-workout inline-template>
 	<div class="card">
 		<div class="card-header">
-			Create a new recording
-			<a v-if="recording" :href="recording.link">Go to recording</a>
+			{{ __('Create a new workout') }}
 		</div>
-
 		<div class="card-body">
 			<div class="form-group row">
 				<label class="col-md-4 control-label">Upload files</label>
@@ -13,7 +11,7 @@
 			      		type="file" 
 			      		name="file_upload" 
 			      		class="form-control-plaintext bg-none border-0" 
-			      		accept="video/*" 
+			      		accept="image/*, video/*, application/pdf" 
 			      		multiple 
 			      		@change="fileQueue.add($event.target.files)"
 			      	>
@@ -24,23 +22,13 @@
 
 	        <form @submit.prevent>
 				<div class="form-group row">
-				    <label class="col-md-4 control-label">Category</label>
-				    <div class="col-md-6">
-				        <input type="text" class="form-control" name="category"
-				               v-model="form.category"
-				               :class="{'is-invalid': form.errors.has('category')}">
-				        <span class="invalid-feedback" v-show="form.errors.has('category')">
-				            @{{ form.errors.get('category') }}
-				        </span>
-				    </div>
-				</div>
+				    <label class="col-md-4 control-label">{{ __('Title') }}</label>
 
-				<div class="form-group row">
-				    <label class="col-md-4 control-label">Title</label>
 				    <div class="col-md-6">
 				        <input type="text" class="form-control" name="title"
 				               v-model="form.title"
 				               :class="{'is-invalid': form.errors.has('title')}">
+
 				        <span class="invalid-feedback" v-show="form.errors.has('title')">
 				            @{{ form.errors.get('title') }}
 				        </span>
@@ -48,11 +36,63 @@
 				</div>
 
 				<div class="form-group row">
-				    <label class="col-md-4 control-label">Summary</label>
+				    <label class="col-md-4 control-label">{{ __('Level') }}</label>
+
+				    <div class="col-md-6">
+						<select 
+							v-model="form.level" 
+							name="level" 
+							class="custom-select form-control" 
+							:class="{'is-invalid': form.errors.has('level')}"
+						>
+						@foreach(config('training.levels') as $level)
+							@if($loop->first)
+						  		<option selected>{{ __($level) }}</option>
+						  	@else
+						  		<option>{{ __($level) }}</option>
+						  	@endif
+						@endforeach
+						</select>
+				       
+				        <span class="invalid-feedback" v-show="form.errors.has('level')">
+				            @{{ form.errors.get('level') }}
+				        </span>
+				    </div>
+				</div>
+
+				<div class="form-group row">
+				    <label class="col-md-4 control-label">{{ __('Style') }}</label>
+
+				    <div class="col-md-6">
+						<select 
+							v-model="form.type" 
+							name="type" 
+							class="custom-select form-control" 
+							:class="{'is-invalid': form.errors.has('type')}"
+						>
+						@foreach(config('training.styles') as $style)
+							@if($loop->first)
+						  		<option selected>{{ __($style) }}</option>
+						  	@else
+						  		<option>{{ __($style) }}</option>
+						  	@endif
+						@endforeach
+						</select>
+
+				        <span class="invalid-feedback" v-show="form.errors.has('type')">
+				            @{{ form.errors.get('type') }}
+				        </span>
+				    </div>
+				</div>	
+
+				<div class="form-group row">
+				    <label class="col-md-4 control-label">{{ __('Summary') }}</label>
+
 				    <div class="col-md-6">
 				        <input  type="text" class="form-control" name="summary"
 				                v-model="form.summary"
 				                :class="{'is-invalid': form.errors.has('summary')}">
+
 				        <span class="invalid-feedback" v-show="form.errors.has('summary')">
 				            @{{ form.errors.get('summary') }}
 				        </span>
@@ -60,18 +100,20 @@
 				</div>	
 
 				<div class="form-group row">
-				    <label class="col-md-4 control-label">Body</label>
+				    <label class="col-md-4 control-label">{{ __('Body') }}</label>
+
 				    <div class="col-md-6">
 						<quill-editor
 							v-model="form.body"
 							ref="editor"
 							:options="editorOptions"
 						></quill-editor>
+
 				        <span class="invalid-feedback" v-show="form.errors.has('body')">
 				            @{{ form.errors.get('body') }}
 				        </span>
 				    </div>
-				</div>
+				</div>	
 
 		        <div class="form-group row mb-0">
 		            <div class="col-md-6 offset-md-4">
@@ -89,4 +131,4 @@
 			</form>
 		</div>
 	</div>
-</kiosk-create-recording>
+</kiosk-create-workout>
