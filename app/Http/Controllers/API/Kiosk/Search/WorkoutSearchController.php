@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\Kiosk\Search;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Workout;
 
-class SearchWorkoutController extends Controller
+class WorkoutSearchController extends Controller
 {
-    public function __invoke()
+    public function show()
     {
         $this->authorize('search', new Workout);
 
@@ -21,7 +21,17 @@ class SearchWorkoutController extends Controller
             'search' => 'string|min:3|max:40'
         ]);
 
-        return Workout::search(request('search'))
+        $search = request('search');
+
+        return Workout::query()
+	        ->where('level', 'like', $search)
+	        ->orWhere('type', 'like', $search)
+	        ->orWhere(function ($query) use ($search) {
+	        	$query
+	        		->where('title', 'like', $search)
+	        		->orWhere('title', 'contains', $search);
+	        })
+	        ->orWhere('summary', 'contains', $search)
             ->orderBy(request('sortBy') ?? 'created_at', request('sortDirection') ?? 'desc')
             ->paginate(
                 request('perPage'), 
