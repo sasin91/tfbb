@@ -33,6 +33,10 @@ class BoardCreated implements ShouldBroadcast
      */
     public function broadcastOn()
     {
+        if ($this->board->isNotPublished()) {
+            return [];
+        }
+
         return new Channel("App.Board");
     }
 }

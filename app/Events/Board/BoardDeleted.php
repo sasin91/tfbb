@@ -33,6 +33,9 @@ class BoardDeleted implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel("App.Board.{$this->board->id}");
-    }
+        if ($this->board->isNotPublished()) {
+            return [];
+        }
+
+        return new Channel("App.Board.{$this->board->id}");    }
 }

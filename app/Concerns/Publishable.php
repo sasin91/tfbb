@@ -37,6 +37,26 @@ trait Publishable
 	}
 
 	/**
+	 * Whether the model is not published
+	 * 
+	 * @return boolean 
+	 */
+	public function isUnpublished()
+	{
+		return blank($this->published_at);
+	}
+
+	/**
+	 * Alias for isUnpublished
+	 * 
+	 * @return boolean 
+	 */
+	public function isNotPublished()
+	{
+		return $this->isUnpublished();
+	}
+
+	/**
 	 * Publish the model
 	 * 
 	 * @param  \DateTime|string $atDate 
