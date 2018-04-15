@@ -4,10 +4,12 @@ import Photo from './photo';
  * Prepare a photo for uploading to the API.
  * 
  * @param  File file 
- * @return Promise
+ * @return File
  */
-export function photo (file) {
-	return new Photo(file).prepareForUpload();
+export async function photo (file) {
+	const { photo } = await new Photo(file).prepareForUpload();
+
+	return photo;
 }
 
 /**

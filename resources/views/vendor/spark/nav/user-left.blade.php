@@ -22,5 +22,9 @@
 </li>
 
 <li class="nav-item">
+	<a class="nav-link" href="{{ url('offers') }}">{{__('Offers')}}</a>
+</li>
+
+<li class="nav-item">
 	<a class="nav-link" href="{{ url('recordings') }}">{{__('Recordings')}}</a>
 </li>

@@ -19,6 +19,9 @@ Route::post('facebook/login', 'Auth\Social\Facebook\FacebookCallbackController@_
 Route::middleware('auth')->group(function () {
 	Route::view('/home', 'home');
 
+	Route::get('offers', 'OfferController@index');
+	Route::get('offers/{offer}', 'OfferController@show');
+	
 	Route::get('profile', 'CurrentUserProfileController@show');
 	Route::post('profile', 'CurrentUserProfileController@store');
 	Route::match(['PUT', 'PATCH'], 'profile', 'CurrentUserProfileController@update');

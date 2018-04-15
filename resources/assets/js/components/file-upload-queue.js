@@ -28,11 +28,42 @@ class FileUploadQueue {
 			const isHandling = new RegExp(config.mime, 'g').test(file.type);
 
 			if (isHandling) {
-				return this.queue[config.name]
+				return {
+					config: config,
+					queue: this.queue[config.name]
+				};
 			}
 
-			return [];
+			return {
+				config: {},
+				queue: []
+			};
 		});
+	}
+
+	/**
+	 * The default do-nothing transformer
+	 * 
+	 * @param File file 
+	 * @return File
+	 */
+	defaultTransformer (file) {
+		return file;
+	}
+
+	/**
+	 * Wrap given transformer in a promise if it is not already one.
+	 * 
+	 * @param Function | Promise transformer
+	 * @param File file
+	 * @return Promise
+	 */
+	transformerPromise (transformer, file) {
+		if (transformer instanceof Promise) {
+			return transformer;
+		}
+
+		return new Promise((resolve) => resolve(transformer(file)));
 	}
 
 	/**
@@ -54,7 +85,11 @@ class FileUploadQueue {
 	 */
 	add (file) {
 		if (file instanceof File) {
-			this.handling(file).forEach((queue) => queue.push(file));
+			this.handling(file).forEach((handler) => {
+				const transformer = handler.config.transformer ? handler.config.transformer : this.defaultTransformer;
+
+				this.transformerPromise(transformer, file).then((result) => handler.queue.push(result));
+			});
 		} else {
 			this.addMany(file);
 		}

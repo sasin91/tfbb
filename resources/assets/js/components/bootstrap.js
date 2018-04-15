@@ -15,9 +15,13 @@ require('./home');
 require('./settings/profile-details');
 require('./kiosk/board/manage-boards');
 require('./kiosk/workout/manage-workouts');
+require('./kiosk/workout/create-workout');
 require('./kiosk/recordings/manage-recordings');
 require('./kiosk/recordings/list-recordings');
 require('./kiosk/recordings/create-recording');
+
+require('./kiosk/offers/manage-offers');
+require('./kiosk/offers/create-offer');
 
 require('./workout');
 

@@ -15,6 +15,8 @@ Route::middleware(['auth:api'])->group(function () {
     Route::apiResource('recordings', 'API\RecordingController');
     Route::name('recordings.videos.store')->post('recordings/{recording}/videos', 'API\Recordings\RecordingVideoController@store');
     
+    Route::apiResource('offers', 'API\OfferController');
+
     Route::apiResource('profiles', 'API\ProfileController');
     Route::name('profiles.lock')->post('profiles/{profile}/lock', 'API\Profile\LockProfileController@store');
     Route::name('profiles.unlock')->post('profiles/{profile}/unlock', 'API\Profile\UnlockProfileController@store');
@@ -58,6 +60,8 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('workouts/{workout}/videos', 'API\Workout\WorkoutVideoController@store')->name('workouts.videos.store');
     Route::post('workouts/{workout}/documents', 'API\Workout\WorkoutDocumentController@store')->name('workouts.documents.store');
     Route::post('workouts/{workout}/select-as-wotm', 'API\Workout\WorkoutOfTheMonthController@store')->name('workouts.wotm.store');
-    Route::get('search-workouts', 'API\SearchWorkoutController@__invoke')->name('workouts.search');
 
+    Route::middleware(['dev'])->group(function () {
+        Route::get('kiosk/search/workouts', 'API\Kiosk\Search\WorkoutSearchController@show')->name('kiosk::search.workouts.show');
+    });
 });
