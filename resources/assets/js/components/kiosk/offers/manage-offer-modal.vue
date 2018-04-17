@@ -93,6 +93,7 @@
 						<a v-if="offer" class="btn btn-link" target="_blank" :href="offer.links.self">Go to offer</a>
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 						<button type="button" class="btn btn-primary" @click.prevent="update">Save changes</button>
+						<button type="button" class="btn btn-danger" @click.prevent="destroy">Delete offer</button>
 					</div>
 				</div><!-- /.modal-content -->
 			</div><!-- /.modal-dialog -->
@@ -132,7 +133,7 @@
 		},
 
 		methods: {
-			show(offer) {
+			show (offer) {
 				this.offer = offer;
 
 				this.form.name = offer.name;
@@ -156,6 +157,13 @@
 				this.form.banner_url = '';
 				this.form.offsite_link = '';
 				this.form.view = '';
+			},
+
+			destroy () {
+				axios.delete(`/api/offers/${this.offer.slug}`).then(() => {
+					this.blank();
+					$('#manage-offer-modal').modal('hide');
+				});
 			},
 
 			update () {

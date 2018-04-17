@@ -6,9 +6,10 @@ use App\Concerns\RoutesUsingSlug;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait as UsesMediaLibraryForFiles;
+use Spatie\MediaLibrary\HasMedia\Interfaces\HasMedia;
 use Watson\Rememberable\Rememberable;
 
-class Offer extends Model
+class Offer extends Model implements HasMedia
 {
 	use RoutesUsingSlug, Rememberable, Searchable, UsesMediaLibraryForFiles;
 
