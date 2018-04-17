@@ -3,8 +3,23 @@ language: php
 php:
   - 7.2
 
-before_script:
+before_install:
   - mysql -e 'create database tfbb;'
+
+before_script:
+  - phpenv config-rm xdebug.so
+  - cp .env.travis .env
+  - composer install --no-interaction
+  - php artisan key:generate
+  - php artisan migrate --force 
 
 scripts:
   - vendor/bin/phpunit
+
+services:
+  - mysql
+
+cache:
+  directories:
+    - node_modules
+    - vendor
