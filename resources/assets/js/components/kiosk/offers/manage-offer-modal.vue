@@ -118,11 +118,43 @@
 			}
 		},
 
+		mounted () {
+			const self = this;
+
+			$('#manage-offer-modal').on('hidden.bs.modal', function (e) {
+				self.blank();
+			});
+		},
+
+		destroyed () {
+			this.blank();
+		},
+
 		methods: {
 			show(offer) {
 				this.offer = offer;
 
+				this.form.name = offer.name;
+				this.form.tagline = offer.tagline;
+				this.form.discount = offer.discount;
+				this.form.body = offer.body;
+				this.form.poster_url = offer.poster_url;
+				this.form.banner_url = offer.banner_url;
+				this.form.offsite_link = offer.offsite_link;
+				this.form.view = offer.view;
+
 				$('#manage-offer-modal').modal('show');
+			},
+
+			blank () {
+				this.form.name = '';
+				this.form.tagline = '';
+				this.form.discount = '';
+				this.form.body = '';
+				this.form.poster_url = '';
+				this.form.banner_url = '';
+				this.form.offsite_link = '';
+				this.form.view = '';
 			},
 
 			update () {
