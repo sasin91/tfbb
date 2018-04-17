@@ -101,6 +101,23 @@
 						    	</ais-results>
 						    </ul>
 					  </ais-index>
+
+					  	<h2 class="text-center">Offers</h2>
+				    	<ais-index :app-id="appId" :api-key="secret" index-name="offers" :query="query">
+				    		<div class="card-columns">
+				    			<ais-results>
+									<div class="card clickable" slot-scope="{ result }" @click="openLink(result.link)">
+										<img class="card-img-top" :src="result.poster_url">
+										<div class="card-block">
+											<h4 class="card-title">
+												<a :href="result.link">{{ result.name }}</a>
+											</h4>
+											<p class="card-text">{{ result.summary }}</p>
+										</div>
+									</div>
+				    			</ais-results>
+				    		</div>
+				    	</ais-index>
 				  	</div>	
 				</div>
 
@@ -159,6 +176,10 @@ export default {
 	  		}
 
 	  		return value;
+	  	},
+
+	  	openLink (link) {
+	  		window.open(link);
 	  	}
 	}
 }
