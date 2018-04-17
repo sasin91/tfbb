@@ -52,7 +52,7 @@ class OfferController extends Controller
         $offer = Offer::create($this->validate($request, [
             'name' => 'required|string|min:5|max:60|unique:offers,name',
             'tagline' => 'string|min:5|max:255',
-            'discount' => 'integer',
+            'discount' => 'numeric',
             'body' => 'string|min:10|max:65535',
             'poster_url' => 'string|url', // 'active_url'
             'banner_url' => 'string|url',
@@ -94,7 +94,7 @@ class OfferController extends Controller
         $offer->update($this->validate($request, [
             'name' => "string|min:5|max:60|unique:offers,name,{$offer->id}",
             'tagline' => 'string|min:5|max:255',
-            'discount' => 'integer',
+            'discount' => 'numeric',
             'body' => 'string|min:10|max:65535',
             'poster_url' => 'string|url', // 'active_url'
             'banner_url' => 'string|url',
