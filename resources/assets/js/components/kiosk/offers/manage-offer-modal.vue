@@ -43,11 +43,11 @@
 							<div class="form-group row">
 							    <label class="col-md-4 control-label">Photo URL</label>
 							    <div class="col-md-6">
-							        <input type="text" class="form-control" name="photo_url"
-							               v-model="form.photo_url"
-							               :class="{'is-invalid': form.errors.has('photo_url')}">
-							        <span class="invalid-feedback" v-show="form.errors.has('photo_url')">
-							            @{{ form.errors.get('photo_url') }}
+							        <input type="text" class="form-control" name="poster_url"
+							               v-model="form.poster_url"
+							               :class="{'is-invalid': form.errors.has('poster_url')}">
+							        <span class="invalid-feedback" v-show="form.errors.has('poster_url')">
+							            @{{ form.errors.get('poster_url') }}
 							        </span>
 							    </div>
 							</div>
@@ -90,8 +90,9 @@
 						</form>
 					</div>
 					<div class="modal-footer">
+						<a v-if="offer" class="btn btn-link" target="_blank" :href="offer.links.self">Go to offer</a>
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary">Save changes</button>
+						<button type="button" class="btn btn-primary" @click.prevent="update">Save changes</button>
 					</div>
 				</div><!-- /.modal-content -->
 			</div><!-- /.modal-dialog -->
@@ -118,11 +119,43 @@
 			}
 		},
 
+		mounted () {
+			const self = this;
+
+			$('#manage-offer-modal').on('hidden.bs.modal', function (e) {
+				self.blank();
+			});
+		},
+
+		destroyed () {
+			this.blank();
+		},
+
 		methods: {
 			show(offer) {
 				this.offer = offer;
 
+				this.form.name = offer.name;
+				this.form.tagline = offer.tagline;
+				this.form.discount = offer.discount;
+				this.form.body = offer.body;
+				this.form.poster_url = offer.poster_url;
+				this.form.banner_url = offer.banner_url;
+				this.form.offsite_link = offer.links.product;
+				this.form.view = offer.view;
+
 				$('#manage-offer-modal').modal('show');
+			},
+
+			blank () {
+				this.form.name = '';
+				this.form.tagline = '';
+				this.form.discount = '';
+				this.form.body = '';
+				this.form.poster_url = '';
+				this.form.banner_url = '';
+				this.form.offsite_link = '';
+				this.form.view = '';
 			},
 
 			update () {
