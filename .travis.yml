@@ -7,7 +7,6 @@ before_install:
   - mysql -e 'create database tfbb;'
 
 before_script:
-  - phpenv config-rm xdebug.so
   - cp .env.travis .env
   - composer install --no-interaction
   - php artisan key:generate
