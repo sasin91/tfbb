@@ -21,6 +21,10 @@ Route::middleware('auth')->group(function () {
 
 	Route::get('offers', 'OfferController@index');
 	Route::get('offers/{offer}', 'OfferController@show');
+
+	Route::get('enrollments', 'EnrollmentController@index');
+	Route::get('enrollments/{enrollment}', 'EnrollmentController@show');
+	Route::delete('enrollments/{enrollment}', 'EnrollmentController@destroy');
 	
 	Route::get('profile', 'CurrentUserProfileController@show');
 	Route::post('profile', 'CurrentUserProfileController@store');
@@ -28,9 +32,15 @@ Route::middleware('auth')->group(function () {
 	Route::delete('profile', 'CurrentUserProfileController@destroy');
 
 	Route::post('workout', 'CurrentWorkoutController@store');
+	Route::get('workout', 'CurrentWorkoutController@show');
 	Route::get('workout-of-the-month', 'WorkoutOfTheMonthController@show');
 	Route::get('workouts', 'WorkoutController@index');
 	Route::get('workouts/{workout}', 'WorkoutController@show');
+
+	Route::post('diet', 'CurrentDietController@store');
+	Route::get('diet', 'CurrentDietController@show');
+	Route::get('diets', 'DietController@index');
+	Route::get('diets/{diet}', 'DietController@show');
 
 	Route::get('boards', 'BoardController@index');
 	Route::get('boards/{board}', 'BoardController@show');

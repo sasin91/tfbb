@@ -24,9 +24,6 @@ class SelectingCurrentWorkoutTest extends TestCase
 		   	->assertRedirect()
 		   	->assertSessionHas('status', "You're now following Old-school strength training.");
 
-	   	$this->assertDatabaseHas('users', [
-	   		'id' => $user->id,
-	   		'current_workout_id' => $workout->id
-	   	]);
+		$this->assertTrue($user->currentWorkout->is($workout), "User did not start workout.");
 	}    
 }

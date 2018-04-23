@@ -2,6 +2,7 @@
 
 use App\Board;
 use App\Comment;
+use App\Diet;
 use App\Profile;
 use App\Reply;
 use App\Thread;
@@ -25,9 +26,13 @@ class VibrantCommunitySeeder extends Seeder
 
         	$threads->shuffle()->take(rand(2,4))->each(function ($thread) {
                 if (Workout::count() > 0) {
-                    $thread->creator->currentWorkout()->associate(
+                    $thread->creator->enrollWorkout(
                         Workout::all()->random()
-                    )->saveOrFail();
+                    );
+
+                    // $thread->creator->enrollDiet(
+                    //     Diet::all()->random()
+                    // );
                 }
 
                 $profile = factory(Profile::class)->states(['filled', 'published'])->create(['creator_id' => $thread->creator->id]);

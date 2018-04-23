@@ -14,15 +14,18 @@ class CurrentWorkoutController extends Controller
 		$this->middleware('subscribed');
 	}
 
+	public function show()
+	{
+		return request()->user()->currentWorkout;
+	}
+
 	public function store()
 	{
 		$this->validate(request(), [
 			'workout_id' => 'required|integer|exists:workouts,id'
 		]);
 
-		request()->user()->currentWorkout()->associate(
-			$workout = Workout::find(request('workout_id'))
-		)->saveOrFail();
+		request()->user()->enrollWorkout($workout = Workout::find(request('workout_id')));
 
 		if (request()->wantsJson()) {
 			return response(['current_workout_id' => $workout->id], 201);

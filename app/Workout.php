@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Concerns\Commentable;
+use App\Concerns\Enrollable;
 use App\Concerns\GeneratesSummaryByClampingBody;
 use App\Concerns\RoutesUsingSlug;
 use App\Events\Workout\WorkoutCreated;
@@ -18,9 +19,10 @@ use Spatie\MediaLibrary\Media;
 class Workout extends Model implements HasMediaConversions
 {
 	use 
-		RoutesUsingSlug,
-	 	Commentable, 
+	    Commentable,
+        Enrollable, 
 	 	GeneratesSummaryByClampingBody, 
+        RoutesUsingSlug,
 	 	Searchable, 
 	 	SoftDeletes, 
 	 	UsesMediaLibraryForFiles;
@@ -28,7 +30,9 @@ class Workout extends Model implements HasMediaConversions
     protected $fillable = [
     	'title', 'slug',
     	'level', 'type',
-    	'summary', 'body'
+        'weeks',
+    	'summary', 'body',
+        'banner_url'
     ];
 
     protected $appends = ['link'];
@@ -38,6 +42,17 @@ class Workout extends Model implements HasMediaConversions
         'updated' => WorkoutUpdated::class,
         'deleted' => WorkoutDeleted::class
     ];
+
+    /**
+     * Get the banner URL or default to first uploaded photo.
+     * 
+     * @param  string | null $url 
+     * @return string      
+     */
+    public function getBannerUrlAttribute($url)
+    {
+        return $url ?? optional($this->getFirstMedia('photos'))->getUrl('thumbnail');
+    }
 
     /**
      * Get the URL to this workout
