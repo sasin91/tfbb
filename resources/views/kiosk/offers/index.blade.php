@@ -1,4 +1,4 @@
-	<div class="card">
+	<div class="card p-2">
 		<div class="card-header">
 			Offers
 		</div>

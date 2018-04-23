@@ -1,5 +1,5 @@
 <kiosk-create-recording inline-template>
-	<div class="card">
+	<div class="card p-2">
 		<div class="card-header">
 			Create a new recording
 			<a v-if="recording" :href="recording.link">Go to recording</a>

@@ -20,7 +20,7 @@ Vue.component('workout', {
 	methods: {
 		 startWorkout () {
 			axios.post(
-				'/user/current/workout',
+				'/workout',
 				{ workout_id: this.workout.id }, 
 				{ headers: { accept: 'application/json' } }
 			).then(() => {

@@ -1,5 +1,5 @@
 <kiosk-list-recordings inline-template>
-	<div class="card">
+	<div class="card p-2">
 		<div class="card-header">
 			Recordings
 		</div>

@@ -1,5 +1,5 @@
 <kiosk-create-workout inline-template>
-	<div class="card">
+	<div class="card p-2">
 		<div class="card-header">
 			{{ __('Create a new workout') }}
 		</div>

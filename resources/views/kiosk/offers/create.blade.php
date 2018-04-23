@@ -1,5 +1,5 @@
 <kiosk-create-offer inline-template>
-	<div class="card">
+	<div class="card p-2">
 		<div class="card-header">
 			Create a new offer
 			<a v-if="offer" :href="offer.links.self">Go to offer</a>
