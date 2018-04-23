@@ -47,8 +47,8 @@ class Enrollment extends Model
      * @param  \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    // public function scopeDiets($query) 
-    // {
-    //     return $query->where('enrollable_type', Diet::class);
-    // } 
+    public function scopeDiets($query) 
+    {
+        return $query->where('enrollable_type', Diet::class);
+    } 
 }

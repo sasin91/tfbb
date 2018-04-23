@@ -30,9 +30,9 @@ class VibrantCommunitySeeder extends Seeder
                         Workout::all()->random()
                     );
 
-                    // $thread->creator->enrollDiet(
-                    //     Diet::all()->random()
-                    // );
+                    $thread->creator->enrollDiet(
+                        Diet::all()->random()
+                    );
                 }
 
                 $profile = factory(Profile::class)->states(['filled', 'published'])->create(['creator_id' => $thread->creator->id]);

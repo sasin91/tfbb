@@ -61,6 +61,11 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('workouts/{workout}/documents', 'API\Workout\WorkoutDocumentController@store')->name('workouts.documents.store');
     Route::post('workouts/{workout}/select-as-wotm', 'API\Workout\WorkoutOfTheMonthController@store')->name('workouts.wotm.store');
 
+    Route::apiResource('diets', 'API\DietController');
+    Route::post('diets/{diet}/photos', 'API\Diet\DietPhotoController@store')->name('diets.photos.store');
+    Route::post('diets/{diet}/videos', 'API\Diet\DietVideoController@store')->name('diets.videos.store');
+    Route::post('diets/{diet}/documents', 'API\Diet\DietDocumentController@store')->name('diets.documents.store');
+
     Route::middleware(['dev'])->group(function () {
         Route::get('kiosk/search/workouts', 'API\Kiosk\Search\WorkoutSearchController@show')->name('kiosk::search.workouts.show');
     });
