@@ -44,6 +44,10 @@ return [
         'secret' => env('WGER_SECRET')
     ],
 
+    'ndb' => [
+        'key' => env('NDB_KEY', 'DEMO_KEY')
+    ],
+
     'facebook' => [
         'client_id'     => env('FACEBOOK_ID'),
         'client_secret' => env('FACEBOOK_SECRET'),

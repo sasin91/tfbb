@@ -46,6 +46,18 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->overrideSparkBindings();
 
+        $this->bindGuzzleCache();
+
+        $this->registerRemoteAPIServices();
+    }
+
+    public function overrideSparkBindings()
+    {
+        $this->app->bind(UserRepositoryContract::class, ExtendedUserRepository::class);
+    }
+
+    public function bindGuzzleCache()
+    {
         $this->app->bind('Guzzle cache', function ($app) {
             $strategy = new PrivateCacheStrategy(
                 new LaravelCacheStorage($app['cache']->store('redis'))
@@ -55,14 +67,39 @@ class AppServiceProvider extends ServiceProvider
                 $strategy
             );
         });
+    }
 
+    public function registerRemoteAPIServices()
+    {
+        $this->bindRemoteAPIManager();
+        $this->bindRemoteAPIShortcuts();
+    }
+
+    public function bindRemoteAPIManager()
+    {
         $this->app->singleton(RemoteAPIManager::class, function ($app) {
             return new RemoteAPIManager($app);
         });
     }
 
-    public function overrideSparkBindings()
+    /**
+     * Register some shortcuts to remote api services, by binding them into the container.
+     * This allows developers to resolve RemoteAPI services directly by dependency injection,
+     * and/or Real-time facades.
+     * 
+     * @example SomeClass@__construct(\NDB $ndb)
+     * @example \Facades\NDB::food($id) 
+     * 
+     * @return void
+     */
+    public function bindRemoteAPIShortcuts()
     {
-        $this->app->bind(UserRepositoryContract::class, ExtendedUserRepository::class);
+        $this->app->bind('NDB', function ($app) {
+            return $app->make(RemoteAPIManager::class)->driver('NDB');
+        });
+
+        $this->app->bind('Wger', function ($app) {
+            return $app->make(RemoteAPIManager::class)->driver('Wger');
+        });
     }
 }

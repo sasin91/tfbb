@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Services\USDA\NDB;
 use App\Services\Wger\Wger;
 use Illuminate\Support\Manager;
 
@@ -25,6 +26,18 @@ class RemoteAPIManager extends Manager
 	public function createNullDriver()
 	{
 		return new NullDriver;
+	}
+
+	/**
+	 * Create the USDA NDB driver.
+	 * 
+	 * @return \App\Services\USDA\NDB
+	 */
+	public function createNDBDriver()
+	{
+		return new NDB(
+			config('services.ndb.key')
+		);
 	}
 
 	/**
