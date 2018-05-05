@@ -36,6 +36,7 @@
         "laracasts/generators": "^1.1",
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^2.0",
+        "php-vcr/php-vcr": "^1.4",
         "phpunit/phpunit": "^7.0"
     },
     "autoload": {

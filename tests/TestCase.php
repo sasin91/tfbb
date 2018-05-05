@@ -9,6 +9,7 @@ use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Laravel\Spark\Contracts\Interactions\Settings\Teams\AddTeamMember;
 use Laravel\Spark\Spark;
+use Tests\RecordsHttpCalls;
 use Tests\WithoutBroadcasting;
 use Tests\WithoutQueue;
 
@@ -112,6 +113,11 @@ abstract class TestCase extends BaseTestCase
 
         if (isset($uses[WithoutBroadcasting::class])) {
             $this->disableEventBroadcastingForAllTests();
+        }
+
+        if (isset($uses[RecordsHttpCalls::class])) {
+            $this->enableHttpRecoding();
+            $this->rememberToStopRecording();
         }
 
         return $uses;
