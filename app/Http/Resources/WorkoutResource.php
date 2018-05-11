@@ -19,7 +19,7 @@ class WorkoutResource extends JsonResource
             'title' => $this->title,
             'level' => $this->level, 
             'type' => $this->type,
-            'summary' => $this->type,
+            'summary' => $this->summary,
             'body' => $this->body,
 
             'documents' => $this->whenLoaded('media', function () {
