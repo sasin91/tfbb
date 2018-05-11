@@ -2985,6 +2985,22 @@ filenamify@^2.0.0:
     strip-outer "^1.0.0"
     trim-repeated "^1.0.0"
 
+filepond-plugin-file-validate-type@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/filepond-plugin-file-validate-type/-/filepond-plugin-file-validate-type-1.0.3.tgz#7efb84fdedc86cb279a86a8712ed75ddaa1b5e74"
+
+filepond-plugin-image-preview@^1.0.9:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/filepond-plugin-image-preview/-/filepond-plugin-image-preview-1.0.9.tgz#e82032eac45be1c56efbe5bac19d137c5df908f3"
+
+filepond-plugin-image-resize@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/filepond-plugin-image-resize/-/filepond-plugin-image-resize-1.0.1.tgz#40a11c5499f1c62dc3221f6a840ae8b4c8f742f7"
+
+filepond@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/filepond/-/filepond-1.4.0.tgz#c5208c6aa6f759592fde1822534731630a1bd5f3"
+
 fill-range@^2.1.0:
   version "2.2.3"
   resolved "https://registry.yarnpkg.com/fill-range/-/fill-range-2.2.3.tgz#50b77dfd7e469bc7492470963699fe7a8485a723"
@@ -8527,6 +8543,12 @@ vm-browserify@0.0.4:
   dependencies:
     indexof "0.0.1"
 
+vue-filepond@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/vue-filepond/-/vue-filepond-2.0.0.tgz#9246b4ba3f5eac770b42247dbab3d8afb7f04de8"
+  dependencies:
+    filepond "^1.4.0"
+
 vue-hot-reload-api@^2.2.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.3.0.tgz#97976142405d13d8efae154749e88c4e358cf926"
@@ -8739,6 +8761,10 @@ websocket-extensions@>=0.1.1:
 webworkify@^1.3.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/webworkify/-/webworkify-1.5.0.tgz#734ad87a774de6ebdd546e1d3e027da5b8f4a42c"
+
+whatwg-fetch@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/whatwg-fetch/-/whatwg-fetch-2.0.4.tgz#dde6a5df315f9d39991aa17621853d720b85566f"
 
 whet.extend@~0.9.9:
   version "0.9.9"
