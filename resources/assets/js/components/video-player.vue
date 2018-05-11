@@ -15,17 +15,16 @@
 
 		data () {
 			return {
-				ready: false,
 				result: ''
 			}
 		},
 
 		mounted () {
 			// When given a string, assume its a URL.
-			if (typeof this.video === 'string') {
-				this.result = this.video;
+			if (typeof this.media === 'string') {
+				this.result = this.media;
 			} else {
-				this.result = URL.createObjectURL(this.video);
+				this.result = URL.createObjectURL(this.media);
 			}
 		},
 
