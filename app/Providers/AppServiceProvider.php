@@ -2,6 +2,11 @@
 
 namespace App\Providers;
 
+use App\Http\Resources\DietResource;
+use App\Http\Resources\MealResource;
+use App\Http\Resources\OfferResource;
+use App\Http\Resources\RecordingResource;
+use App\Http\Resources\WorkoutResource;
 use App\Rules\SpamFree;
 use App\Services\RemoteAPIManager;
 use App\Services\Wger;
@@ -26,15 +31,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Validator::extend('spamfree', SpamFree::class.'@passes');
+        $this->registerValidationExtensions();
 
-        Horizon::auth(function ($request) {
-            if (is_null($request->user())) {
-                return false;
-            }
-
-            return Spark::developer($request->user()->email);
-        });
+        $this->dontWrapResources();
     }
 
     /**
@@ -49,6 +48,20 @@ class AppServiceProvider extends ServiceProvider
         $this->bindGuzzleCache();
 
         $this->registerRemoteAPIServices();
+    }
+
+    public function dontWrapResources()
+    {
+        DietResource::withoutWrapping();
+        MealResource::withoutWrapping();
+        OfferResource::withoutWrapping();
+        RecordingResource::withoutWrapping();
+        WorkoutResource::withoutWrapping();
+    }
+
+    public function registerValidationExtensions()
+    {
+        Validator::extend('spamfree', SpamFree::class.'@passes');
     }
 
     public function overrideSparkBindings()

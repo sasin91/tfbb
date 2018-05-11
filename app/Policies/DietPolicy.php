@@ -11,6 +11,42 @@ class DietPolicy
     use HandlesAuthorization, BypassedByDevelopers;
 
     /**
+     * Whether the user can attach meals to the diet.
+     * 
+     * @param  \App\User   $user 
+     * @param  \App\Diet   $diet 
+     * @return bool
+     */
+    public function attachMeals(User $user, Diet $diet)
+    {
+        return false;
+    }
+
+    /**
+     * Whether the user can detach meals to the diet.
+     * 
+     * @param  \App\User   $user 
+     * @param  \App\Diet   $diet 
+     * @return bool
+     */
+    public function detachMeals(User $user, Diet $diet)
+    {
+        return false;
+    }
+
+    /**
+     * Determine whether the user can upload files to the diet.
+     * 
+     * @param  \App\User   $user   
+     * @param  \App\Diet $diet 
+     * @return bool         
+     */
+    public function uploadFiles(User $user, Diet $diet)
+    {
+        return false;
+    }
+
+    /**
      * Determine whether the user can upload photos to the diet.
      * 
      * @param  \App\User   $user   

@@ -180,6 +180,7 @@ class TokenGuard
         try {
             return decrypt($request->header('X-XSRF-TOKEN'));
         } catch (Exception $e) {
+            dd($e->getMessage());
         }
     }
 }

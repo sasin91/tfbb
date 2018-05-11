@@ -26,7 +26,7 @@
                 'algolia' => [
                     'id' => config('services.algolia.id'),
                     'secret' => config('services.algolia.secret')
-                ],
+                ]
             ]
         )); ?>;
     </script>

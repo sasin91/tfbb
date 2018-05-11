@@ -8,6 +8,7 @@
 <script>
 	export default {
 		props: {
+			url: { type: String },
 			video: { type: Object|String },
 			width: { type: Number, default: 368 },
 			height: { type: Number, default: 232 }
@@ -21,6 +22,10 @@
 		},
 
 		mounted () {
+			if (this.url) {
+				this.result = this.url;
+			}
+
 			// When given a string, assume its a URL.
 			if (typeof this.video === 'string') {
 				this.result = this.video;
@@ -31,6 +36,16 @@
 
 		beforeDestroy () {
 			URL.revokeObjectURL(this.result);
+		},
+
+		methods: {
+			supports (media) {
+				if (typeof media === 'object') {
+					return media.mime_type.includes('video');
+				}
+
+				return media.includes('video');
+			}
 		}
 	}
 </script>

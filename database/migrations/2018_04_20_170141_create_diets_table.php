@@ -16,8 +16,8 @@ class CreateDietsTable extends Migration
             $table->increments('id');
             $table->string('goal')->index();
             $table->string('style')->index();
-            $table->string('title');
-            $table->string('slug');
+            $table->string('title')->unique();
+            $table->string('slug')->unique()->index();
             $table->string('summary');
             $table->text('body');
             $table->string('view')->index();

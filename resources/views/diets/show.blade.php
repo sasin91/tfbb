@@ -5,6 +5,9 @@
 		<div class="container text-center">
 			<span class="title">
 				<h1 class="display-3">{{ $diet->title }}</h1>
+
+				<img class="img-fluid w-100" src="{{ $diet->banner_url }}"></img>
+
 				<h3 class="font-weight-light lead">{{ $diet->summary }}</h3>	
 
 				@if(optional(Auth::user()->currentDiet)->is($diet))
@@ -16,15 +19,16 @@
 
 			<hr class="divider"></hr>
 
-			<span class="exercises">
-				<h3>{{ __('Allergy warnings') }}</h3>
+			<span class="meals">
+				<h3>{{ __('Meals') }}</h3>
 				<ul class="list-group list-group-flush">
-				  <li v-for="allergy in allergies" class="list-group-item">@{{ allergy.name }}</li>
-				</ul>
-
-				<h3>{{ __('Foods') }}</h3>
-				<ul class="list-group list-group-flush">
-				  <li v-for="food in foods" class="list-group-item">@{{ food.name }}</li>
+				  <li 
+				  	v-for="meal in diet.meals" class="list-group-item"  
+				  	 data-toggle="popover"
+				  	 :data-content="meal.description"
+				  >
+				  	<a :href="meal.link">@{{ meal.name }}</a>
+				  </li>
 				</ul>
 			</span>	
 

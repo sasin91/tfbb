@@ -27,7 +27,7 @@ class WorkoutController extends Controller
             'sortDirection' => 'nullable|string|in:asc,desc'
         ]);
 
-        return Workout::query()
+        $workouts = Workout::query()
             ->orderBy(request('sortBy') ?? 'created_at', request('sortDirection') ?? 'desc')
             ->paginate(
                 request('perPage'), 
@@ -35,6 +35,8 @@ class WorkoutController extends Controller
                 request('pageName'),
                 request('page')
             );
+
+        return WorkoutResource::collection($workouts);
     }
 
     /**
@@ -47,7 +49,7 @@ class WorkoutController extends Controller
     {
         $this->authorize('create', new Workout);
 
-        $this->validate($request, [
+        $validated = $this->validate($request, [
             'title' => 'required|string|min:5|max:60|unique:workouts,title',
             'level' => ['required', 'string', Rule::in(config('training.levels'))], 
             'type' => ['required', 'string', Rule::in(config('training.styles'))],
@@ -55,8 +57,8 @@ class WorkoutController extends Controller
             'body' => 'nullable|string|max:65535'
         ]);
 
-        return Workout::create(
-            $request->only(['title', 'level', 'type', 'summary', 'body'])
+        return new WorkoutResource(
+            Workout::create($validated)
         );
     }
 
@@ -84,7 +86,7 @@ class WorkoutController extends Controller
     {
         $this->authorize('update', $workout);
 
-        $this->validate($request, [
+        $validated = $this->validate($request, [
             'title' => "string|min:5|max:60|unique:workouts,title,{$workout->id}",
             'level' => ['string', Rule::in(config('training.levels'))], 
             'type' => ['string', Rule::in(config('training.styles'))],
@@ -92,9 +94,9 @@ class WorkoutController extends Controller
             'body' => 'nullable|string|max:65535' // Mysql text limit, 64kb.
         ]);
 
-        return tap($workout)->update(
-            $request->only(['title', 'level', 'type', 'summary', 'body'])
-        );
+        $workout->update($validated);
+
+        return new WorkoutResource($workout);
     }
 
     /**

@@ -13,10 +13,12 @@ class DietSeeder extends Seeder
      */
     public function run()
     {
-        $diets = factory(Diet::class)->times(10)->create();
+        Popularity::forget(Diet::class);
+
+        $diets = factory(Diet::class)->states('with meals')->times(10)->create();
 
         $diets->shuffle()->take(3)->each(function ($diet) {
-        	Popularity::increment($diet);
+        	Popularity::increment($diet, rand(1,20));
         });
     }
 }

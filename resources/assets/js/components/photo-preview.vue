@@ -5,6 +5,7 @@
 <script>
 	export default {
 		props: {
+			url: { type: String },
 			photo: { type: Object|String },
 			width: { type: Number, default: 368 },
 			height: { type: Number, default: 232 }
@@ -23,6 +24,10 @@
 		},
 
 		mounted () {
+			if (this.url) {
+				this.encoded = this.url;
+			}
+
 			if (typeof this.photo === 'object') {
 				if (this.photo.hasOwnProperty('file')) {
 					this.base64Encode(this.photo.file).then((result) => {
@@ -45,6 +50,14 @@
 		},
 
 		methods: {
+			supports (media) {
+				if (typeof media === 'object') {
+					return media.mime_type.includes('image');
+				}
+
+				return media.includes('image');
+			},
+
 			display () {
 				if (typeof this.photo === 'object') {
 					if (this.photo.original) {

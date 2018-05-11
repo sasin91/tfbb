@@ -1,5 +1,9 @@
 @extends('spark::layouts.app')
 
+@push('styles')
+    <link rel="stylesheet" href="https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css">
+@endpush
+
 @section('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mousetrap/1.4.6/mousetrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
@@ -47,8 +51,15 @@
 
                         <li class="nav-item ">
                             <a class="nav-link" href="#workouts" aria-controls="workouts" role="tab" data-toggle="tab">
-                                <i class="fa fa-comment"></i>
+                                <i class="fa fa-user-plus"></i>
                                 {{__('Workouts')}}
+                            </a>
+                        </li>
+
+                        <li class="nav-item ">
+                            <a class="nav-link" href="#diets" aria-controls="diets" role="tab" data-toggle="tab">
+                                <i class="fa fa-warehouse"></i>
+                                {{__('Diets')}}
                             </a>
                         </li>
 
@@ -95,6 +106,11 @@
                     <!-- Workout Management -->
                     <div role="tabcard" class="tab-pane" id="workouts">
                         @include('kiosk.workouts')
+                    </div>
+
+                    <!-- Diets Management -->
+                    <div role="tabcard" class="tab-pane" id="diets">
+                        @include('kiosk.diets')
                     </div>
 
                     <!-- Recording Management -->

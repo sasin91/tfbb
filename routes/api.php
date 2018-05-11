@@ -62,9 +62,13 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('workouts/{workout}/select-as-wotm', 'API\Workout\WorkoutOfTheMonthController@store')->name('workouts.wotm.store');
 
     Route::apiResource('diets', 'API\DietController');
+    Route::get('diets/{diet}/files', 'API\Diet\DietFilesController@index')->name('diets.files.index');
+    Route::post('diets/{diet}/files', 'API\Diet\DietFilesController@store')->name('diets.files.store');
     Route::post('diets/{diet}/photos', 'API\Diet\DietPhotoController@store')->name('diets.photos.store');
     Route::post('diets/{diet}/videos', 'API\Diet\DietVideoController@store')->name('diets.videos.store');
     Route::post('diets/{diet}/documents', 'API\Diet\DietDocumentController@store')->name('diets.documents.store');
+    Route::post('diets/{diet}/meals', 'API\Diet\AttachMealController@store')->name('diets.meals.store');
+    Route::delete('diets/{diet}/meals', 'API\Diet\DetachMealController@destroy')->name('diets.meals.destroy');
 
     Route::middleware(['dev'])->group(function () {
         Route::get('kiosk/search/workouts', 'API\Kiosk\Search\WorkoutSearchController@show')->name('kiosk::search.workouts.show');

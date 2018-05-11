@@ -123,7 +123,7 @@ class FileUploadQueue {
 	 * @param  Function callback 	
 	 * @return Promise[]
 	 */
-	upload (callback = null) {
+	upload (callback) {
 		return this.process((files, name) => {
 			const formData = new FormData;
 

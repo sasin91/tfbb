@@ -7,6 +7,7 @@
     "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
   },
   "dependencies": {
+    "algoliasearch": "^3.27.0",
     "axios": "^0.15.2",
     "bootstrap": "^4.0",
     "cross-env": "^3.2.3",
@@ -31,9 +32,12 @@
     "urijs": "^1.17.0",
     "video.js": "^6.7.3",
     "vue": "2.*",
+    "vue-filepond": "^2.0.0",
     "vue-instantsearch": "^1.5.1",
+    "vue-multiselect": "^2.1.0",
     "vue-quill-editor": "^3.0.5",
     "vue-transmit": "^8.1.2",
-    "vue2-editor": "^2.4.2"
+    "vue2-editor": "^2.4.2",
+    "whatwg-fetch": "^2.0.4"
   }
 }

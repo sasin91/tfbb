@@ -10,6 +10,7 @@
  */
 
 require('./../spark-components/bootstrap');
+require('./media-preview');
 
 require('./home');
 require('./settings/profile-details');
@@ -23,7 +24,12 @@ require('./kiosk/recordings/create-recording');
 require('./kiosk/offers/manage-offers');
 require('./kiosk/offers/create-offer');
 
+require('./kiosk/diet/create-diet');
+require('./kiosk/diet/edit-diet');
+require('./kiosk/diet/manage-diet');
+
 require('./workout');
+require('./diet');
 
 Vue.component('search-modal', require('./search-modal.vue'));
 Vue.component('photo-modal', require('./photo-modal.vue'));

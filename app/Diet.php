@@ -23,6 +23,16 @@ class Diet extends Model implements HasMediaConversions
 	];
 
     /**
+     * The meals the diet offers
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function meals()
+    {
+        return $this->belongsToMany(Meal::class, 'dishes')->using(Dish::class);
+    }
+
+    /**
      * Get the banner URL or default to first uploaded photo.
      * 
      * @param  string | null $url 
@@ -43,6 +53,23 @@ class Diet extends Model implements HasMediaConversions
 	{
 		return $value ?? 'diets.generic';
 	}
+
+    public function getUrlsAttribute()
+    {
+        return (object)[
+            'web' => url('diets', $this),
+            'api' => (object)[
+                'files' => (object)[
+                    'index' => route('diets.files.index', $this),
+                    'store' => route('diets.files.store', $this) 
+                ],
+                'store' => route('diets.store'),
+                'show' => route('diets.show', $this),
+                'update' => route('diets.update', $this),
+                'destroy' => route('diets.destroy', $this)
+            ]
+        ];
+    }
 
     /**
      * Get the URL to this diet
@@ -76,7 +103,9 @@ class Diet extends Model implements HasMediaConversions
             'summary' => $this->summary,
             'goal' => $this->goal,
             'style' => $this->style,
-            'link' => $this->link
+            'link' => $this->link,
+            'meals' => $this->meals->count(),
+            'calories' => $this->meals->sum('total_calories')
         ];
     }
 

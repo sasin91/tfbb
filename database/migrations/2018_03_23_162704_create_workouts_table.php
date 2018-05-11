@@ -16,6 +16,7 @@ class CreateWorkoutsTable extends Migration
             $table->increments('id');            
             $table->string('level')->index();
             $table->string('type')->index();
+            $table->integer('weeks')->default(0);
             $table->string('title')->unique()->index();
             $table->string('slug');
             $table->string('summary')->nullable();

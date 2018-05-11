@@ -14,6 +14,7 @@
     <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
 
     <!-- CSS -->
+    @stack('styles')
     <link href="{{ mix(Spark::usesRightToLeftTheme() ? 'css/app-rtl.css' : 'css/app.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
@@ -27,6 +28,10 @@
                     'id' => config('services.algolia.id'),
                     'secret' => config('services.algolia.secret')
                 ],
+
+                'ndb' => [
+                    'key' => config('services.ndb.key')
+                ]
             ]
         )); ?>;
     </script>

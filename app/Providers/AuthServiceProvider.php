@@ -2,8 +2,9 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate;
+use Laravel\Horizon\Horizon;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -20,7 +21,8 @@ class AuthServiceProvider extends ServiceProvider
         'App\Workout' => 'App\Policies\WorkoutPolicy',
         'App\Profile' => 'App\Policies\ProfilePolicy',
         'App\Recording' => 'App\Policies\RecordingPolicy',
-        'App\Offer' => 'App\Policies\OfferPolicy'
+        'App\Offer' => 'App\Policies\OfferPolicy',
+        'App\Meal' => 'App\Policies\MealPolicy'
     ];
 
     /**
@@ -32,6 +34,17 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        $this->configureHorizon();
+    }
+
+    public function configureHorizon()
+    {
+        Horizon::auth(function ($request) {
+            if (is_null($request->user())) {
+                return false;
+            }
+
+            return Spark::developer($request->user()->email);
+        });
     }
 }

@@ -12,7 +12,7 @@ class DietController extends Controller
     {
     	$this->authorize('index', new Diet);
 
-    	return view('diets.index')->with('diets', Diet::all(['id', 'title', 'slug']));
+    	return view('diets.index')->with('diets', Diet::all());
     }
 
     public function show(Diet $diet)
@@ -21,6 +21,6 @@ class DietController extends Controller
 
     	Popularity::increment($diet);
 
-    	return view('diets.show')->with('diet', $diet->load(['foods', 'allergies']));
+    	return view('diets.show')->with('diet', $diet->load(['meals']));
     }
 }

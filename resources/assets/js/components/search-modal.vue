@@ -80,6 +80,28 @@
 						    </ul>
 					  </ais-index>
 
+						<ais-index :app-id="appId" :api-key="secret" index-name="diets" :query="query">
+						    <ul class="list-group list-group-flush text-center">
+						    	<ais-results>
+						    		<div slot="header">
+								    	<h2>Diets</h2>
+
+						  				<ais-results-per-page-selector></ais-results-per-page-selector>
+								    	<ais-stats></ais-stats>
+								    </div>
+								    
+								    <hr class="divider"></hr>
+
+						    		<template slot-scope="{ result }">
+										<li class="list-group-item" data-toggle="tooltip" data-placement="top" :title="result.summary">
+											<span class="badge">{{ result.level }}</span>
+									  		<a :href="result.link">{{ result.title }}</a>
+									  	</li>
+						    		</template>
+						    	</ais-results>
+						    </ul>
+					  </ais-index>
+
 						<ais-index :app-id="appId" :api-key="secret" index-name="recordings" :query="query">
 						    <ul class="list-group list-group-flush text-center">
 						    	<ais-results>

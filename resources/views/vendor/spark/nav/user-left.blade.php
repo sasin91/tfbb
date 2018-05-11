@@ -10,6 +10,10 @@
 </li>
 
 <li class="nav-item">
+	<a class="nav-link" href="{{ url('diets') }}">{{__('Diets')}}</a>	
+</li>
+
+<li class="nav-item">
 	<a class="nav-link" href="{{ url('workouts') }}">{{__('Workouts')}}</a>	
 </li>
 

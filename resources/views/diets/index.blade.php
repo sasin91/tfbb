@@ -4,7 +4,7 @@
 		<div class="container">
 			<h1 class="display-3 text-center">Diets</h1>
 			
-			<div class="row">
+			<div class="card-columns">
 				@foreach($diets as $diet) 
 					<div class="card mr-1">
 					  <img class="card-img-top img-fluid" src="{{ $diet->banner_url }}">
