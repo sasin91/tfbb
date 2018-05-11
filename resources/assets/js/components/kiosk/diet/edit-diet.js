@@ -3,6 +3,14 @@ import AjaxMealSelect from '../../ajax-meal-select.vue'
 
 import * as FilePond from 'filepond';
 import 'filepond/dist/filepond.min.css';
+import FilepondPluginImagePreview from 'filepond-plugin-image-preview';
+import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
+import FilepondPluginImageResize from 'filepond-plugin-image-resize';
+import FilepondPluginFileValidateType from 'filepond-plugin-file-validate-type';
+
+FilePond.registerPlugin(FilepondPluginImagePreview);
+FilePond.registerPlugin(FilepondPluginImageResize); 
+FilePond.registerPlugin(FilepondPluginFileValidateType);
 
 Vue.component('kiosk-edit-diet', {
 	components: {AjaxMealSelect},
@@ -62,9 +70,9 @@ Vue.component('kiosk-edit-diet', {
 					    }
 					},
 
-					onprocessfile: (error, file) => {
+					onprocessfile: (error, uploaded) => {
 						if (! error) {
-							this.files.push(file);
+							this.files.push(uploaded.file);
 						}
 					}
 				});

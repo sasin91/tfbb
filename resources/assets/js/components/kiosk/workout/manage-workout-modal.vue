@@ -8,11 +8,11 @@
 	      	</spinner>	
 	      	<div v-if="hasMedia" class="media container">
 		      	<div class="row" v-if="uploadedPhotos.length > 0">
-			  		<photo-preview v-for="(photo, index) in uploadedPhotos" :key="index" :photo="photo.url"></photo-preview>
+			  		<photo-preview v-for="(photo, index) in uploadedPhotos" :key="index" :media="photo.url"></photo-preview>
 	      		</div> 
 
 	      		<div class="row" v-if="uploadedVideos.length > 0">
-	      			<video-player v-for="(video, index) in uploadedVideos" :key="index" :video="video.url"></video-player>
+	      			<video-player v-for="(video, index) in uploadedVideos" :key="index" :media="video.url"></video-player>
 	      		</div>   
 
 	      		<div class="row" v-if="uploadDocuments.length > 0">

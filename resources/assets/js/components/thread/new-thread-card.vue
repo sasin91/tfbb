@@ -11,7 +11,7 @@
 					  	<photo-preview  
 					  		v-for="photo in queuedPhotoUploads" 
 					  		:key="photo.id"
-					  		:photo="photo.preview"
+					  		:media="photo.preview"
 					  	></photo-preview>
 					  </div>
 

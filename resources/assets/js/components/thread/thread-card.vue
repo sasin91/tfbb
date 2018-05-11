@@ -16,7 +16,7 @@
 			<spinner :spin="uploading"></spinner>
 			<template v-if="images.length > 0">
 			  <div class="row">
-			  	<photo-preview v-for="photo in images" :key="photo.url" :photo="photo"></photo-preview>
+			  	<photo-preview v-for="photo in images" :key="photo.url" :media="photo"></photo-preview>
 			  </div>
 			  <hr class="divider"></hr>		
 			</template>

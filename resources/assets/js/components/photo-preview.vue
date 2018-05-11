@@ -5,8 +5,7 @@
 <script>
 	export default {
 		props: {
-			url: { type: String },
-			photo: { type: Object|String },
+			media: { type: Object|String },
 			width: { type: Number, default: 368 },
 			height: { type: Number, default: 232 }
 		},
@@ -23,36 +22,44 @@
 			}
 		},
 
-		mounted () {
-			if (this.url) {
-				this.encoded = this.url;
-			}
-
-			if (typeof this.photo === 'object') {
-				if (this.photo.hasOwnProperty('file')) {
-					this.base64Encode(this.photo.file).then((result) => {
-						this.encoded = result;
-					});
-				} else {
-					if (this.photo.hasOwnProperty('preview')) {
-						this.encoded = this.photo.preview;
-					} else {
-						this.encoded = this.photo.thumbnail ? this.photo.thumbnail : this.photo.url;
+		watch: {
+			media: {
+				handler: function (media) {
+					if (typeof media === 'string') {
+						// When a string is given, we can assume its either a data string or url.
+						this.encoded = media;
 					}
+								
+					if (typeof media === 'object') {
+						if (media.hasOwnProperty('file')) {
+							this.base64Encode(media.file).then((result) => {
+								this.encoded = result;
+							});
+						} else {
+							if (media.hasOwnProperty('preview')) {
+								this.encoded = media.preview;
+							} else {
+								this.encoded = media.thumbnail ? media.thumbnail : media.url;
+							}
 
-				}
-			}
+						}
 
-			if (typeof this.photo === 'string') {
-				// When a string is given, we can assume its either a data string or url.
-				this.encoded = this.photo;
+						if (media instanceof File) {
+							this.base64Encode(media).then((result) => {
+								this.encoded = result;
+							});
+						}
+					}				
+				},
+
+				immediate: true
 			}
 		},
 
 		methods: {
 			supports (media) {
 				if (typeof media === 'object') {
-					return media.mime_type.includes('image');
+					return media.type.includes('image');
 				}
 
 				return media.includes('image');
