@@ -83,13 +83,18 @@ Vue.component('kiosk-manage-diets', {
 			}
 		},
 
+		addDiet (diet) {
+			this.creatingDiet = false;
+			this.diets.unshift(diet);
+		}, 
+
 		searchDiets () {
 			this.algolia.search(this.searchForm.query, (err, content) => {
 				if (err) {
 					console.error(err);
 					return;
 				}
-				console.log(content.hits);
+				
 				this.diets = orderBy(content.hits, this.sortColumn, this.sortDirection);
 			});
 		},
