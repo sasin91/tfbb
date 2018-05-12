@@ -11,6 +11,9 @@
 			      		accept="image/*, video/*, application/pdf" 
 			      		multiple 
 			      	>
+			      	<small class="lead">
+			      		{{ __('For videos,  MP4 format is preferred, as it has wider native support.') }}
+			      	</small>
 				</div>
 
 				<hr class="divider"></hr>
