@@ -10,6 +10,7 @@
  */
 
 require('./../spark-components/bootstrap');
+require('./file-manager');
 require('./media-preview');
 
 require('./home');
