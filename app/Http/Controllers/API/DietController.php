@@ -47,13 +47,15 @@ class DietController extends Controller
         $validated = $this->validate(request(), [
             'goal' => 'required|string|min:2', 
             'style' => 'required|string|min:2',
-            'title' => 'required|string|min:5',
+            'title' => 'required|string|min:5|unique:diets,title',
+            'slug' => 'nullable|string|unique:diets,slug',
             'banner_url' => 'required|string|url',
-            'slug' => 'nullable|string',
             'summary' => 'nullable|string',
             'body' => 'nullable|string',
             'view' => 'nullable|string'
         ]);
+
+        $validated['view'] = $validated['view'] ?? 'diets.generic';
 
         return new DietResource(Diet::create($validated));
     }
