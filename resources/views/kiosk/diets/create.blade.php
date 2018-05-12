@@ -1,25 +1,35 @@
-<kiosk-create-diet inline-template @created="creatingDiet = false">
+<kiosk-create-diet inline-template @created="addDiet">
 	<div class="card p-2">
 		<div class="card-header">
 			{{__('Create a new diet')}}
 		</div>
 		<div class="card-body">
-			<div class="form-group row">
-				<label class="col-md-4 control-label">{{__('Upload files')}}</label>
-				<div class="col-md-6">
-			      	<input 
-			      		type="file" 
-			      		name="file_upload" 
-			      		class="form-control-plaintext bg-none border-0" 
-			      		accept="image/*, video/*, application/pdf" 
-			      		multiple 
-			      		@change="fileQueue.add($event.target.files)"
-			      	>
-				</div>
+			<div class="form-group">
+				<file-manager 
+					ref="fileManager"
+					:upload-immediately="false" 
+					input-id="create-diet-filepond"
+					@uploaded="addToFilesArray"
+					@dropped="removeFromFilesArray"
+				>
+				   	<div class="col-md-12" slot-scope="{}">
+				   		<input
+				   			id="create-diet-filepond" 
+				    		ref="fileInput"
+				    		type="file" 
+				    		name="file" 
+				    		class="form-control-plaintext bg-none border-0 filepond" 
+				    		accept="image/*, video/*, application/pdf" 
+				    		multiple 
+				     	>
+						<small class="lead">
+				     		{{ __('For videos,  MP4 format is preferred, as it has wider native support.') }}
+				     	</small>
+				   	</div>
+				</file-manager>
 			</div>
 
 			<div class="form-group row">
-				{{-- <label class="col-md-4 control-label">{{__('Select meals')}}</label> --}}
 				<ajax-meal-select ref="meals"></ajax-meal-select>
 			</div>
 

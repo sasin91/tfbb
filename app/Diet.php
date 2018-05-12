@@ -63,6 +63,10 @@ class Diet extends Model implements HasMediaConversions
                     'index' => route('diets.files.index', $this),
                     'store' => route('diets.files.store', $this) 
                 ],
+
+                'meals' => (object)[
+                    'store' => route('diets.meals.store', $this)
+                ],
                 'store' => route('diets.store'),
                 'show' => route('diets.show', $this),
                 'update' => route('diets.update', $this),

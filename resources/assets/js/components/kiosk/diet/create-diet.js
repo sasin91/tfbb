@@ -1,6 +1,6 @@
-import { photo, slugify } from '../../helpers'
+import { slugify } from '../../helpers'
+import { tap } from 'lodash'
 import AjaxMealSelect from '../../ajax-meal-select.vue'
-import FileUploadQueue from '../../file-upload-queue';
 
 Vue.component('kiosk-create-diet', {
 	components: {AjaxMealSelect},
@@ -21,45 +21,44 @@ Vue.component('kiosk-create-diet', {
 		        'banner_url': ''
 			}),
 
-			fileQueue: new FileUploadQueue([
-				{ name: 'photos', mime: 'image', transformer: (file) => photo(file) },
-				{ name: 'videos', mime: 'video' },
-				{ name: 'documents', mime: 'application/pdf' }
-			]),
-
 			diet: null
 		}
 	},
 
 	computed: {
-		/**
-		 * Build the default slug from the title.
-		 * 
-		 * @return string
-		 */
 		defaultSlug () {
 			return slugify(this.form.title);
 		}
 	},
 
 	methods: {
+		addToFilesArray (file) {
+			//
+		},
+
+		removeFromFilesArray (file) {
+			//
+		},
+
 		async store () {
-			this.diet = await Spark.post('/api/diets', this.form);
+			const diet = await Spark.post('/api/diets', this.form);
+			this.diet = diet;
+			
+			const meals = this.$refs.meals.selectedMeals;
+
+			if (meals.length > 0) {
+				axios.post(
+					diet.urls.api.meals.store,
+					{'meals': meals.map(meal => meal.objectID)}
+				);
+			}
+			
+			tap(this.$refs.fileManager.pond, (pond) => {
+				pond.setOptions({ server: { url: diet.urls.api.files.store }});
+				pond.processFiles();
+			});
 
 			this.$emit('created', this.diet);
-
-			await axios.post(
-				`/api/diets/${this.diet.slug}/meals`,
-				{'meals': this.$refs.meals.selectedMeals.map(meal => meal.objectID)}
-			);
-
-			await this.fileQueue.upload((files, name) => {
-				if (files.length === 0) {
-					return;
-				}
-
-				return axios.post(`/api/diets/${this.diet.slug}/${name}`, files);
-			});
 		}
 	}
 });

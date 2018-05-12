@@ -2,19 +2,28 @@
 	<div class="card p-2">
 		<div class="card-body">
 			<div class="form-group">
-				<div class="col-md-12">
-			      	<input 
-			      		ref="fileUpload"
-			      		type="file" 
-			      		name="file" 
-			      		class="form-control-plaintext bg-none border-0 filepond" 
-			      		accept="image/*, video/*, application/pdf" 
-			      		multiple 
-			      	>
-			      	<small class="lead">
-			      		{{ __('For videos,  MP4 format is preferred, as it has wider native support.') }}
-			      	</small>
-				</div>
+				<file-manager 
+					:url="diet.urls.api.files.store" 
+					:upload-immediately="true" 
+					input-id="edit-diet-filepond"
+					@uploaded="addToFilesArray"
+					@dropped="removeFromFilesArray"
+				>
+				   	<div class="col-md-12" slot-scope="{}">
+				   		<input
+				   			id="edit-diet-filepond" 
+				    		ref="fileInput"
+				    		type="file" 
+				    		name="file" 
+				    		class="form-control-plaintext bg-none border-0 filepond" 
+				    		accept="image/*, video/*, application/pdf" 
+				    		multiple 
+				     	>
+						<small class="lead">
+				     		{{ __('For videos,  MP4 format is preferred, as it has wider native support.') }}
+				     	</small>
+				   	</div>
+				</file-manager>
 
 				<hr class="divider"></hr>
 				<div class="container">

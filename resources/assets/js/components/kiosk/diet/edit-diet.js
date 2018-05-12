@@ -1,16 +1,5 @@
-import { photo, slugify, cookie, fileFromUrl } from '../../helpers'
+import { photo, slugify, fileFromUrl } from '../../helpers'
 import AjaxMealSelect from '../../ajax-meal-select.vue'
-
-import * as FilePond from 'filepond';
-import 'filepond/dist/filepond.min.css';
-import FilepondPluginImagePreview from 'filepond-plugin-image-preview';
-import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
-import FilepondPluginImageResize from 'filepond-plugin-image-resize';
-import FilepondPluginFileValidateType from 'filepond-plugin-file-validate-type';
-
-FilePond.registerPlugin(FilepondPluginImagePreview);
-FilePond.registerPlugin(FilepondPluginImageResize); 
-FilePond.registerPlugin(FilepondPluginFileValidateType);
 
 Vue.component('kiosk-edit-diet', {
 	components: {AjaxMealSelect},
@@ -35,13 +24,7 @@ Vue.component('kiosk-edit-diet', {
 			}),
 
 			files: [],
-			pond: null,
 		}
-	},
-
-	mounted () {
-		this.pond = FilePond.create(this.$refs.fileUpload);
-		// this.pond.setOptions({});
 	},
 
 	watch: {
@@ -57,29 +40,10 @@ Vue.component('kiosk-edit-diet', {
 				this.form.banner_url = diet.banner_url;
 
 				this.files = diet.files;
-
-				this.pond.setOptions({
-					server: {
-					    url: diet.urls.api.files.store,
-					    process: {
-					    	headers: {
-							    'X-Requested-With': 'XMLHttpRequest',
-	   							'X-CSRF-TOKEN': Spark.csrfToken,
-	   							'X-XSRF-TOKEN': cookie('XSRF-TOKEN')
-					    	}
-					    }
-					},
-
-					onprocessfile: (error, uploaded) => {
-						if (! error) {
-							this.files.push(uploaded.file);
-						}
-					}
-				});
 			},
 
 			immediate: false,
-			deep: true
+			deep: false
 		}
 	},
 
@@ -90,6 +54,15 @@ Vue.component('kiosk-edit-diet', {
 	},
 
 	methods: {
+		addToFilesArray (file) {
+			this.files.push(file);			
+		},
+
+		removeFromFilesArray (file) {
+			console.log('Removing file...');
+			console.log(file);
+		},
+
 		async edit (diet) {
 			const { data } = await axios.get(this.diet.urls.api.show);
 			
