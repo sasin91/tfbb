@@ -27,10 +27,6 @@
                 'algolia' => [
                     'id' => config('services.algolia.id'),
                     'secret' => config('services.algolia.secret')
-                ],
-
-                'ndb' => [
-                    'key' => config('services.ndb.key')
                 ]
             ]
         )); ?>;
