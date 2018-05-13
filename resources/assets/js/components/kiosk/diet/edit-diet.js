@@ -40,6 +40,10 @@ Vue.component('kiosk-edit-diet', {
 				this.form.banner_url = diet.banner_url;
 
 				this.files = diet.files;
+
+				this.$refs.fileManager.pond.setOptions({
+					server: { url: diet.urls.api.files.store }
+				});
 			},
 
 			immediate: false,

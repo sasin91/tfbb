@@ -3,7 +3,7 @@
 		<div class="card-body">
 			<div class="form-group">
 				<file-manager 
-					:url="diet.urls.api.files.store" 
+					ref="fileManager"
 					:upload-immediately="true" 
 					input-id="edit-diet-filepond"
 					@uploaded="addToFilesArray"
