@@ -1,4 +1,4 @@
-import { photo, slugify, fileFromUrl } from '../../helpers'
+import { photo, slugify } from '../../helpers'
 import AjaxMealSelect from '../../ajax-meal-select.vue'
 
 Vue.component('kiosk-edit-diet', {
@@ -61,14 +61,6 @@ Vue.component('kiosk-edit-diet', {
 		removeFromFilesArray (file) {
 			console.log('Removing file...');
 			console.log(file);
-		},
-
-		async edit (diet) {
-			const { data } = await axios.get(this.diet.urls.api.show);
-			
-			data.files.map(url => fileFromUrl(url));
-
-			this.selectedDiet = data;
 		},
 
 		async update () {
