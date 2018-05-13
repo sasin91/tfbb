@@ -4,16 +4,16 @@
 			<button type="button" class="btn btn-primary" 
 				v-show="! creatingDiet" 
 				@click="creatingDiet = true"
-			>Create</button>
+			>{{ __('Create') }}</button>
 			<button type="button" class="btn btn-primary" 
 				v-show="creatingDiet" 
 				@click="creatingDiet = false"
-			>Back</button>
+			>{{ __('Back') }}</button>
 
 			<button type="button" class="btn btn-primary" 
 				v-show="selectedDiet"
 				@click="selectedDiet = null"
-			>Back</button>
+			>{{ __('Back') }}</button>
 		</div>
 
 		<transition name="fade">
@@ -24,7 +24,7 @@
 		</transition>		
 
 		<transition name="fade">
-			<div v-show="creatingDiet">
+			<div v-if="creatingDiet">
 				@include('kiosk.diets.create')
 			</div>
 		</transition>
