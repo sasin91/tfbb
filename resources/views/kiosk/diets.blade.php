@@ -1,6 +1,6 @@
 <kiosk-manage-diets inline-template>
 	<div>
-		<div class="btn-group" role="group" aria-label="Actions">
+		<div class="btn-group" role="group" aria-label="Navigation">
 			<button type="button" class="btn btn-primary" 
 				v-show="! creatingDiet" 
 				@click="creatingDiet = true"
