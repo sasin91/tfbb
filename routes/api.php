@@ -72,5 +72,7 @@ Route::middleware(['auth:api'])->group(function () {
 
     Route::middleware(['dev'])->group(function () {
         Route::get('kiosk/search/workouts', 'API\Kiosk\Search\WorkoutSearchController@show')->name('kiosk::search.workouts.show');
+
+        Route::get('ndb/search', 'API\USDA\NDBSearchController@show')->name('ndb.search.show');
     });
 });

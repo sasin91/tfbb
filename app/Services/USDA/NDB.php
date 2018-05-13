@@ -57,6 +57,30 @@ class NDB
 	}
 
 	/**
+	 * Search the NDB api for given value
+	 * 
+	 * @param  string      $value 
+	 * @param  int|integer $page  
+	 * @param  int|integer $take  
+	 * 
+	 * @return array
+	 */
+	public function search(string $value, int $page = 0, int $take = 25)
+	{		
+		$response = $this->client->get('search', [
+			'query' => [
+				'q' => $value,
+				'offset' => $page,
+				'max' => $take
+			],
+		]);
+
+		$results = json_decode($response->getBody()->getContents(), true);
+
+		return array_get($results, 'list.item', []);
+	}
+
+	/**
 	 * Find and resolve given id to a Food model instance.
 	 * 
 	 * @param  string $id [The ndb no]

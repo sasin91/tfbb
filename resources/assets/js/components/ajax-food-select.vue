@@ -1,25 +1,24 @@
 <template>
 	<div>
-		<label class="typo__label" for="food-search">Async multiselect</label>
 	  	<multiselect 
 	  		v-model="selectedFoods" 
 	  		id="food-search" 
 	  		label="name" 
 	  		track-by="ndbno"
-	  		placeholder="Type to search" 
+	  		placeholder="Search for food(s)" 
 	  		open-direction="bottom" 
 	  		:options="foods" 
 	  		:multiple="true" 
 	  		:searchable="true" 
 	  		:loading="loading" 
-	  		:internal-search="false" 
+	  		:internal-search="true" 
 	  		:clear-on-select="false"
 	  		:close-on-select="false" 
 	  		:options-limit="300"
 	  		:limit="3" 
 	  		:limit-text="limitText" 
 	  		:max-height="600" 
-	  		:show-no-results="false" 
+	  		:show-no-results="true" 
 	  		:hide-selected="true" 
 	  		@search-change="search"
 	  	>
@@ -40,38 +39,34 @@
 			return {
 				selectedFoods: [],
 
+				page: 0,
+				limit: 50,
 				loading: false,
+				query: '',
+
 				foods: [],
-
-				client: null
 			}
 		},
-
-		computed: {
-			apiKey () {
-				return Spark.ndb.key;
-			}
-		},
-
-		mounted () {
-			this.client = axios.create({
-			  baseURL: 'https://api.nal.usda.gov/ndb/',
-			  timeout: 1000,
-			  headers: { 'X-Api-Key': apiKey, 'Content-Type':'application/json', 'Accept':'application/json' }
-			});
-		},
-
-		destroyed () {
-			this.client = null;
-		},
-
+		
 		methods: {
-			async search (value, page = 0, limit = 25) {
+			async search (value) {
+				if (this.loading) {
+					return;
+				}
+
+				if (! value || value.length === 0) {
+					return;
+				}
+
 				this.loading = true;
 
-				const { list } = await this.client.get('/search', { q:value, offset:page, max:limit });
+				const { data } = await axios({
+					method: 'GET',
+					url: '/api/ndb/search',
+					params: { query:value, page:this.page, perPage:this.limit }
+				});
 
-				this.foods = list.item;
+				this.foods = data;
 
 				this.loading = false;
 			},
