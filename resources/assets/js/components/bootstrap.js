@@ -25,6 +25,9 @@ require('./kiosk/recordings/create-recording');
 require('./kiosk/offers/manage-offers');
 require('./kiosk/offers/create-offer');
 
+require('./kiosk/meal/manage-meal');
+require('./kiosk/meal/create-meal');
+
 require('./kiosk/diet/create-diet');
 require('./kiosk/diet/edit-diet');
 require('./kiosk/diet/manage-diet');

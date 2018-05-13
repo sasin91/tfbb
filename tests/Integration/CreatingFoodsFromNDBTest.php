@@ -26,8 +26,6 @@ class CreatingFoodsFromNDBTest extends TestCase
             $this->fail($e->getResponse()->getBody()->getContents());
     	}
 
-    	$food->saveOrFail();
-
     	$this->assertDatabaseHas('foods', [
     		'id' => $food->id,
 		    "name" => "SHOPRITE, ORGANIC CHUNKY PEANUT BUTTER, PEANUT, BUTTER, UPC: 041190043538",

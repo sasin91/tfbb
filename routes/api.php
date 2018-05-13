@@ -61,6 +61,9 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('workouts/{workout}/documents', 'API\Workout\WorkoutDocumentController@store')->name('workouts.documents.store');
     Route::post('workouts/{workout}/select-as-wotm', 'API\Workout\WorkoutOfTheMonthController@store')->name('workouts.wotm.store');
 
+    Route::apiResource('meals', 'API\MealController');
+    Route::post('meals/{meal}/foods', 'API\Meal\MealFoodsController@store')->name('meals.foods.store');
+
     Route::apiResource('diets', 'API\DietController');
     Route::get('diets/{diet}/files', 'API\Diet\DietFilesController@index')->name('diets.files.index');
     Route::post('diets/{diet}/files', 'API\Diet\DietFilesController@store')->name('diets.files.store');

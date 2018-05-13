@@ -32,7 +32,9 @@ class Food extends Model
 			return $nutrient['name'] == 'Protein';
 		});
 
-		return new static([
+		return static::query()->firstOrCreate([
+			'provider_name' => 'ndb',
+			'provider_id' => $result['ndbno'],
 			'name' => $result['name'],
 			'carbohydrate' => "{$carb['value']} {$carb['unit']}",
 			'energy' => "{$energy['value']} {$energy['unit']}",

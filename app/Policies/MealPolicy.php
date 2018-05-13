@@ -10,6 +10,17 @@ class MealPolicy
     use HandlesAuthorization, BypassedByDevelopers;
 
     /**
+     * Determine whether the user can attach foods to the meal.
+     *         
+     * @param  \App\User   $user 
+     * @return bool       
+     */
+    public function attachFoods(User $user, Meal $meal)
+    {
+        return false;
+    }
+
+    /**
      * Determine whether the user can view a listing of meals.
      *         
      * @param  \App\User   $user 

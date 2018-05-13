@@ -27,6 +27,7 @@ class MealController extends Controller
         ]);
 
         $meals = Meal::query()
+            ->withCount('foods')
             ->orderBy(request('sortBy') ?? 'created_at', request('sortDirection') ?? 'desc')
             ->paginate(
                 request('perPage'), 
@@ -54,7 +55,6 @@ class MealController extends Controller
             'type' => 'required|string',
             'description' => 'nullable|string',
             'photo_url' => 'nullable|string|url',
-            'banner_url' => 'string|url'
         ]);
 
         return MealResource::make(Meal::create($validated));
@@ -90,7 +90,6 @@ class MealController extends Controller
             'slug' => 'nullable|string',
             'description' => 'nullable|string',
             'photo_url' => 'nullable|string|url',
-            'banner_url' => 'string|url'
         ]);
 
         $meal->update($validated);

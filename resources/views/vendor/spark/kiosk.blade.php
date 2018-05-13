@@ -64,6 +64,13 @@
                         </li>
 
                         <li class="nav-item ">
+                            <a class="nav-link" href="#meals" aria-controls="meals" role="tab" data-toggle="tab">
+                                <i class="fa fa-utensils"></i>
+                                {{__('Meals')}}
+                            </a>
+                        </li>
+
+                        <li class="nav-item ">
                             <a class="nav-link" href="#recordings" aria-controls="recordings" role="tab" data-toggle="tab">
                                 <i class="fas fa-video"></i>
                                 {{__('Recordings')}}
@@ -111,6 +118,11 @@
                     <!-- Diets Management -->
                     <div role="tabcard" class="tab-pane" id="diets">
                         @include('kiosk.diets')
+                    </div>
+
+                    <!-- Meal Management -->
+                    <div role="tabcard" class="tab-pane" id="meals">
+                        @include('kiosk.meals')
                     </div>
 
                     <!-- Recording Management -->

@@ -17,7 +17,6 @@ class Meal extends Model
 		'type',
 		'description',
 		'photo_url',
-		'banner_url'
 	];
 
 	/**
@@ -30,6 +29,10 @@ class Meal extends Model
 		return new Fluent([
 			'web' => url('meals', $this),
 			'api' => [
+				'foods' => [
+					'store' => route('meals.foods.store', $this)
+				],
+
 				'show' => route('meals.show', $this),
 				'update' => route('meals.update', $this),
 				'destroy' => route('meals.destroy', $this)
