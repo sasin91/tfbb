@@ -1,9 +1,27 @@
 <kiosk-manage-diets inline-template>
 	<div>
 		<div class="btn-group" role="group" aria-label="Actions">
-			<button type="button" class="btn btn-primary" @click="creatingDiet = true">Create</button>
-			<button v-show="selectedDiet" type="button" class="btn btn-primary" @click="selectedDiet = null">Back</button>
+			<button type="button" class="btn btn-primary" 
+				v-show="! creatingDiet" 
+				@click="creatingDiet = true"
+			>Create</button>
+			<button type="button" class="btn btn-primary" 
+				v-show="creatingDiet" 
+				@click="creatingDiet = false"
+			>Back</button>
+
+			<button type="button" class="btn btn-primary" 
+				v-show="selectedDiet"
+				@click="selectedDiet = null"
+			>Back</button>
 		</div>
+
+		<transition name="fade">
+			<div v-show="! selectedDiet && ! creatingDiet">
+				@include('kiosk.diets.search')
+				@include('kiosk.diets.list')
+			</div>
+		</transition>		
 
 		<transition name="fade">
 			<div v-show="creatingDiet">
@@ -12,15 +30,8 @@
 		</transition>
 
 		<transition name="fade">
-			<div v-show="selectedDiet">
+			<div v-if="selectedDiet">
 				@include('kiosk.diets.edit')
-			</div>
-		</transition>
-
-		<transition name="fade">
-			<div v-show="! selectedDiet">
-				@include('kiosk.diets.search')
-				@include('kiosk.diets.list')
 			</div>
 		</transition>
 	
