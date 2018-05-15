@@ -70,12 +70,17 @@ Vue.component('kiosk-manage-meals', {
 		async edit(meal) {
 			const { data } = await axios.get(meal.urls.api.show);
 
-			this.selectedDiet = data;
+			this.selectedMeal = data;
 		},
 
-		addMeal (meal) {
+		async addMeal (meal) {
 			this.creatingMeal = false;
-			this.meals.unshift(meal);
+
+			const { data } = await axios.get(meal.urls.api.show);
+
+			
+			this.meals.unshift(data);
+
 		}, 
 
 		clearSearch () {
