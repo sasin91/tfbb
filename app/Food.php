@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Services\RemoteAPI;
+use App\Services\USDA\NDB;
 use Illuminate\Database\Eloquent\Model;
 
 class Food extends Model
@@ -11,8 +13,13 @@ class Food extends Model
 		'energy',
 		'protein',
 		'fat',
-		'carbohydrate' 
+		'carbohydrate',
+		'provider_name',
+		'provider_id',
+		'details'
 	];
+
+	protected $casts = ['details' => 'collection'];
 
 	public static function fromNDB(array $result)
 	{
@@ -25,23 +32,36 @@ class Food extends Model
 		});
 
 		$fat = array_first($result['nutrients'], function ($nutrient) {
-			return $nutrient['name'] = 'Total lipid (fat)';
+			return $nutrient['name'] == 'Total lipid (fat)';
 		});
 
 		$protein = array_first($result['nutrients'], function ($nutrient) {
 			return $nutrient['name'] == 'Protein';
 		});
 
-		return static::query()->firstOrCreate([
+		return static::query()->create([
 			'provider_name' => 'ndb',
 			'provider_id' => $result['ndbno'],
 			'name' => $result['name'],
-			'carbohydrate' => "{$carb['value']} {$carb['unit']}",
-			'energy' => "{$energy['value']} {$energy['unit']}",
-			'fat' => "{$fat['value']} {$fat['unit']}",
-			'protein' => "{$protein['value']} {$protein['unit']}"
+			'carbohydrate' => "{$carb['value']}",
+			'energy' => "{$energy['value']}",
+			'fat' => "{$fat['value']}",
+			'protein' => "{$protein['value']}",
+
+			'details' => $result
 		]);
 	}
+
+	/**
+	 * Fetch the raw food report from NDB.
+	 * 
+	 * @return array
+	 */
+	public function details()
+	{
+		return RemoteAPI::driver($this->provider_name)->fetchReport($this->provider_id)['food'];
+	}
+
 
 	/**
 	 * The meals that contain the current food.

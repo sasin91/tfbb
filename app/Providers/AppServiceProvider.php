@@ -9,7 +9,8 @@ use App\Http\Resources\RecordingResource;
 use App\Http\Resources\WorkoutResource;
 use App\Rules\SpamFree;
 use App\Services\RemoteAPIManager;
-use App\Services\Wger;
+use App\Services\USDA\NDB;
+use App\Services\Wger\Wger;
 use App\Spark\ExtendedUserRepository;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Validator;
@@ -107,12 +108,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function bindRemoteAPIShortcuts()
     {
-        $this->app->bind('NDB', function ($app) {
+        $this->app->bind(NDB::class, function ($app) {
             return $app->make(RemoteAPIManager::class)->driver('NDB');
         });
+        $this->app->alias(NDB::class, 'NDB');
 
-        $this->app->bind('Wger', function ($app) {
+        $this->app->bind(Wger::class, function ($app) {
             return $app->make(RemoteAPIManager::class)->driver('Wger');
         });
+        $this->app->alias(Wger::class, 'Wger');
     }
 }

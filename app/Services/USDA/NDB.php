@@ -81,12 +81,12 @@ class NDB
 	}
 
 	/**
-	 * Find and resolve given id to a Food model instance.
+	 * Fetch the raw report for given ndbno
 	 * 
-	 * @param  string $id [The ndb no]
-	 * @return \App\Food
+	 * @param  string $id NDBNo
+	 * @return array
 	 */
-	public function food($id)
+	public function fetchReport($id)
 	{
 		$response = $this->client->post('reports/V2', [
 			'json' => [
@@ -97,6 +97,19 @@ class NDB
 
 		$result = json_decode($response->getBody()->getContents(), true);
 
-		return Food::fromNDB($result['report']['food']);
+		return array_get($result, 'report', []);
+	}
+
+	/**
+	 * Find and resolve given id to a Food model instance.
+	 * 
+	 * @param  string $id [The ndb no]
+	 * @return \App\Food
+	 */
+	public function food($id)
+	{
+		return Food::fromNDB(
+			$this->fetchReport($id)['food']
+		);
 	}
 }
