@@ -37,6 +37,16 @@ Vue.component('kiosk-manage-meals', {
 		}
 	},
 
+	computed: {
+		pages () {
+			return Array.from(Array(this.lastPage+1).keys()).slice(1);
+		},
+
+		sortIcon () {
+			return this.sortDirection === 'asc' ? 'fa-arrow-down' : 'fa-arrow-up';
+		}
+	},
+
 	watch: {
 		'searchForm.query': {
 			handler: function (value) {
@@ -55,6 +65,12 @@ Vue.component('kiosk-manage-meals', {
 				
 				this.meals = orderBy(content.hits, this.sortColumn, this.sortDirection);
 			});
+		},
+
+		async edit(meal) {
+			const { data } = await axios.get(meal.urls.api.show);
+
+			this.selectedDiet = data;
 		},
 
 		addMeal (meal) {

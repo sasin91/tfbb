@@ -47,7 +47,11 @@ class Meal extends Model
 	 */
 	public function getTotalCarbohydratesAttribute()
 	{
-		return $this->foods->sum('carbohydrate');
+		if ($this->relationLoaded('foods')) {
+			return $this->foods->sum('carbohydrate');
+		}
+		
+		return $this->foods()->sum('carbohydrate');
 	}
 
 	/**
@@ -57,7 +61,11 @@ class Meal extends Model
 	 */
 	public function getTotalEnergyAttribute()
 	{
-		return $this->foods->sum('energy');
+		if ($this->relationLoaded('foods')) {
+			return $this->foods->sum('energy');
+		}
+
+		return $this->foods()->sum('energy');
 	}
 
 	/**
@@ -67,7 +75,11 @@ class Meal extends Model
 	 */
 	public function getTotalFatsAttribute()
 	{
-		return $this->foods->sum('fat');
+		if ($this->relationLoaded('foods')) {
+			return $this->foods->sum('fat');
+		}
+
+		return $this->foods()->sum('fat');
 	}
 
 	/**
@@ -77,7 +89,11 @@ class Meal extends Model
 	 */
 	public function getTotalProteinsAttribute()
 	{
-		return $this->foods->sum('protein');
+		if ($this->relationLoaded('foods')) {
+			return $this->foods->sum('protein');
+		}
+
+		return $this->foods()->sum('protein');
 	}
 
 	/**
