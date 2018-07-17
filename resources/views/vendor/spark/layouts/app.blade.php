@@ -25,8 +25,8 @@
         window.Spark = <?php echo json_encode(array_merge(
             Spark::scriptVariables(), [
                 'algolia' => [
-                    'id' => config('services.algolia.id'),
-                    'secret' => config('services.algolia.secret')
+                    'id' => config('services.algolia.app_id'),
+                    'secret' => config('services.algolia.search')
                 ]
             ]
         )); ?>;

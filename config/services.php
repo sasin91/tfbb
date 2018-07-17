@@ -36,8 +36,9 @@ return [
     ],
 
     'algolia' => [
-        'id' => config('scout.algolia.id'),
-        'secret' => env('ALGOLIA_SEARCH_ONLY_SECRET')
+        'app_id' => env('ALGOLIA_APP_ID', ''),
+        'search' => env('ALGOLIA_SEARCH', ''),
+        'secret' => env('ALGOLIA_SECRET', '')
     ],
 
     'wger' => [
