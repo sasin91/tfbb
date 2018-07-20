@@ -17,7 +17,7 @@ Route::get('facebook/login', 'Auth\Social\Facebook\FacebookLoginController@__inv
 Route::post('facebook/login', 'Auth\Social\Facebook\FacebookCallbackController@__invoke');
 
 Route::middleware('auth')->group(function () {
-	Route::view('/home', 'home');
+    Route::get('home', 'HomeController@show');
 
 	Route::get('offers', 'OfferController@index');
 	Route::get('offers/{offer}', 'OfferController@show');

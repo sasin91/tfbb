@@ -8,9 +8,16 @@
             <div class="col-md-8">
                 <div class="card card-default">
                     <div class="card-header">{{__('Dashboard')}}</div>
-
                     <div class="card-body">
-                        {{__('Your application\'s dashboard.')}}
+                        <p>{{ __("You're currently have :count enrollement(s)", ['count' => $enrollmentsCount]) }}
+                        @includeIf($enrollmentsCount > 0, 'home.latest-enrollments', [
+                            'workouts' => $workouts,
+                            'diets' => $diets
+                        ])
+
+                        <current-workout-progress :user="user"></current-workout-progress>
+
+                        <!-- Next workout suggestion? -->
                     </div>
                 </div>
             </div>

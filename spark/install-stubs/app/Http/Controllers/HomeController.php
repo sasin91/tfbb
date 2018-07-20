@@ -9,9 +9,10 @@ class HomeController extends Controller
     /**
      * Show the application dashboard.
      *
+     * @param Request $request 
      * @return Response
      */
-    public function show()
+    public function show(Request $request)
     {
         return view('home');
     }
