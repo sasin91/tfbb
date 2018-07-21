@@ -17,12 +17,22 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
 
+    public function asDeveloper($user)
+    {
+        return $this->asDev($user);
+    }
+
     public function asDev($user = null)
     {
+        $emailKey = array_rand(Spark::$developers);
+        $email = Spark::$developers[$emailKey];
+
         if (is_null($user)) {
-            $user = User::where('email', head(Spark::$developers))->firstOr(function () {
-                return factory(User::class)->create(['email' => head(Spark::$developers)]);
+            $user = User::where('email', $email)->firstOr(function () {
+                return factory(User::class)->create(['email' => $email]);
             });
+        } else {
+            $user->update(['email' => $email]);
         }
 
         return $this->asUser($user);

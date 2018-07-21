@@ -178,10 +178,12 @@ class User extends SparkUser
      */
     public function enrollWorkout(Workout $workout)
     {
-        return $this->enrollments()->create([
-            'enrollable_id' => $workout->id,
-            'enrollable_type' => Relation::getMorphedModel(Workout::class) ?? Workout::class
-        ]);
+        return $workout->enroll($this);
+
+        // return $this->enrollments()->create([
+        //     'enrollable_id' => $workout->id,
+        //     'enrollable_type' => Relation::getMorphedModel(Workout::class) ?? Workout::class
+        // ]);
     }
 
     /**
@@ -214,10 +216,12 @@ class User extends SparkUser
      */
     public function enrollDiet(Diet $diet)
     {
-        return $this->enrollments()->create([
-            'enrollable_id' => $diet->id,
-            'enrollable_type' => Relation::getMorphedModel(Diet::class) ?? Diet::class
-        ]);
+        return $diet->enroll($this);
+
+        // return $this->enrollments()->create([
+        //     'enrollable_id' => $diet->id,
+        //     'enrollable_type' => Relation::getMorphedModel(Diet::class) ?? Diet::class
+        // ]);
     }
 
 

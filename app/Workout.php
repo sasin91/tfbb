@@ -51,7 +51,7 @@ class Workout extends Model implements HasMediaConversions
      */
     public function getBannerUrlAttribute($url)
     {
-        return $url ?? optional($this->getFirstMedia('photos'))->getUrl('thumbnail');
+        return $url ?? optional($this->getFirstMedia('photos'))->getUrl();
     }
 
     /**

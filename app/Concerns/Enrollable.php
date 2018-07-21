@@ -2,8 +2,9 @@
 
 namespace App\Concerns;
 
-use App\Jobs\ScrapEnrollmentJob;
 use App\Enrollment;
+use App\Jobs\ScrapEnrollmentJob;
+use Illuminate\Support\Facades\Auth;
 
 trait Enrollable
 {
@@ -17,6 +18,23 @@ trait Enrollable
 		static::deleted(function($model) {
 			dispatch(new ScrapEnrollmentsJob($model));
 		});
+	}
+
+	/**
+	 * Enroll the current model
+	 *
+	 * @param \App\User|int|null $user
+	 * @return \App\Enrollment
+	 */
+	public function enroll($user = null)
+	{
+		if (is_null($user)) {
+			$user = Auth::id();
+		}
+
+		return $this->enrollments()->create([
+			'user_id' => is_object($user) ? $user->id : $user
+		]);
 	}
 
 	/**

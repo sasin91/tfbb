@@ -60,7 +60,8 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('workouts/{workout}/videos', 'API\Workout\WorkoutVideoController@store')->name('workouts.videos.store');
     Route::post('workouts/{workout}/documents', 'API\Workout\WorkoutDocumentController@store')->name('workouts.documents.store');
     Route::post('workouts/{workout}/select-as-wotm', 'API\Workout\WorkoutOfTheMonthController@store')->name('workouts.wotm.store');
-
+    Route::post('workouts/{workout}/enroll', 'API\Workout\WorkoutEnrollmentController@store')->name('workouts.enrollment.store');
+    
     Route::apiResource('meals', 'API\MealController');
     Route::post('meals/{meal}/foods', 'API\Meal\MealFoodsController@store')->name('meals.foods.store');
 

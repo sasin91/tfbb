@@ -4,11 +4,25 @@ namespace App\Policies;
 
 use App\User;
 use App\Workout;
+use Laravel\Spark\Spark;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class WorkoutPolicy
 {
     use HandlesAuthorization, BypassedByDevelopers;
+
+    /**
+     * Determine whether the user search within workouts.
+     *
+     * @param \App\User     $user
+     * @param \App\Workout  $workout
+     * @return mixed
+     */
+    public function enroll(User $user, Workout $workout)
+    {
+        return $user->is_moderator
+            || $user->subscribed();
+    }
 
     /**
      * Determine whether the user can select the workout for the month.
@@ -19,8 +33,7 @@ class WorkoutPolicy
      */
     public function selectAsWorkoutOfTheMonth(User $user, Workout $workout)
     {
-        return $user->is_moderator
-            || $user->subscribed();
+        return $user->is_moderator;
     }
 
     /**
