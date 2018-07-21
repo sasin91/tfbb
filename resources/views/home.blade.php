@@ -2,23 +2,18 @@
 
 @section('content')
 <home :user="user" inline-template>
-    <div class="container">
+    <div class="container-fluid">
         <!-- Application Dashboard -->
         <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card card-default">
-                    <div class="card-header">{{__('Dashboard')}}</div>
-                    <div class="card-body">
-                        <p>{{ __("You're currently have :count enrollement(s)", ['count' => $enrollmentsCount]) }}
-                        @includeIf($enrollmentsCount > 0, 'home.latest-enrollments', [
+            <div class="col-md-6">
+                <div class="well">
+                        @includeWhen(
+                        $enrollmentsCount > 0, 
+                        'home.latest-workouts', 
+                        [
                             'workouts' => $workouts,
-                            'diets' => $diets
+                            // 'diets' => $diets
                         ])
-
-                        <current-workout-progress :user="user"></current-workout-progress>
-
-                        <!-- Next workout suggestion? -->
-                    </div>
                 </div>
             </div>
         </div>
