@@ -1,29 +1,28 @@
 import { orderBy } from 'lodash';
-import { fileFromUrl } from '../../helpers'
 
 Vue.component('kiosk-manage-diets', {
-	mounted () {
+	mounted() {
 		const self = this;
 
-        Bus.$on('sparkHashChanged', function (hash, parameters) {
-            if (hash == 'diets' && self.diets.length === 0) {
-            	self.fetchDiets();
-            	self.listenForNewDiets();
-            }
+		Bus.$on('sparkHashChanged', function (hash, parameters) {
+			if (hash == 'diets' && self.diets.length === 0) {
+				self.fetchDiets();
+				self.listenForNewDiets();
+			}
 
-            return true;
-        });
+			return true;
+		});
 
 		const client = require('algoliasearch')(Spark.algolia.id, Spark.algolia.secret);
 
 		this.algolia = client.initIndex('diets');
 	},
 
-	destroyed () {
+	destroyed() {
 		this.algolia = null;
 	},
 
-	data () {
+	data() {
 		return {
 			currentPage: null,
 			lastPage: null,
@@ -45,11 +44,11 @@ Vue.component('kiosk-manage-diets', {
 	},
 
 	computed: {
-		pages () {
-			return Array.from(Array(this.lastPage+1).keys()).slice(1);
+		pages() {
+			return Array.from(Array(this.lastPage + 1).keys()).slice(1);
 		},
 
-		sortIcon () {
+		sortIcon() {
 			return this.sortDirection === 'asc' ? 'fa-arrow-down' : 'fa-arrow-up';
 		}
 	},
@@ -69,7 +68,7 @@ Vue.component('kiosk-manage-diets', {
 			this.selectedDiet = data;
 		},
 
-		sortBy (column) {
+		sortBy(column) {
 			if (column == this.sortColumn) {
 				this.sortDirection = (this.sortDirection === 'desc') ? 'asc' : 'desc';
 			}
@@ -83,44 +82,44 @@ Vue.component('kiosk-manage-diets', {
 			}
 		},
 
-		addDiet (diet) {
+		addDiet(diet) {
 			this.creatingDiet = false;
 			this.diets.unshift(diet);
-		}, 
+		},
 
-		searchDiets () {
+		searchDiets() {
 			this.algolia.search(this.searchForm.query, (err, content) => {
 				if (err) {
 					console.error(err);
 					return;
 				}
-				
+
 				this.diets = orderBy(content.hits, this.sortColumn, this.sortDirection);
 			});
 		},
 
-		clearSearch () {
+		clearSearch() {
 			this.searchForm.query = '';
 			this.diets = [];
 			this.fetchDiets();
 		},
 
-		fetchNextDiets () {
+		fetchNextDiets() {
 			this.currentPage += this.currentPage;
 
 			this.fetchDiets();
 		},
 
-		fetchPreviousDiets () {
-			this.currentPage = this.currentPage -1;
+		fetchPreviousDiets() {
+			this.currentPage = this.currentPage - 1;
 
 			this.fetchDiets();
 		},
 
-		fetchDiets (page = null) {
+		fetchDiets(page = null) {
 			axios.get('/api/diets', {
-				params: { 
-					page: (page ? page : this.currentPage), 
+				params: {
+					page: (page ? page : this.currentPage),
 					sortBy: this.sortColumn,
 					sortDirection: this.sortDirection
 				},
@@ -134,23 +133,23 @@ Vue.component('kiosk-manage-diets', {
 			});
 		},
 
-		listenForNewDiets () {
+		listenForNewDiets() {
 			Echo.channel('App.Diet')
 				.listen('Diet.DietCreated', (event) => {
-					if (! this.diets.includes(event.diet)) {
+					if (!this.diets.includes(event.diet)) {
 						this.diets.unshift(event.diet);
 					}
 				})
 		},
 
-		listenForEvents () {
+		listenForEvents() {
 			const self = this;
 
 			this.diets.forEach(function (diet) {
 				Echo.channel(`App.Diet.${diet.id}`)
 					.listen('Diet.DietUpdated', (event) => {
 						const index = self.diets.findIndex(diet => parseInt(diet.id) === parseInt(event.diet.id))
-						
+
 						self.$set(self.diets, index, event.diet);
 					})
 					.listen('Diet.DietDeleted', (event) => {

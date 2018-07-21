@@ -21,6 +21,7 @@ class RecordingResource extends JsonResource
             'title' => $this->title,  
             'slug' => $this->slug,
             'link' => $this->link,
+            'urls' => $this->urls,
             'summary' => $this->summary, 
             'body' => $this->body,
             'media_count' => $this->whenLoaded('media', function () {
@@ -30,7 +31,7 @@ class RecordingResource extends JsonResource
                 return $this->media->map(function ($media) {
                     return [
                         'url' => $media->getUrl(),
-                        'poster' => !empty($media->getUrl('poster')) ?: new MissingValue,
+                        'poster' => !empty($media->getUrl('thumbnail')) ?: new MissingValue,
                         'name' => $media->name,
                         'mime_type' => $media->mime_type,
                         'created_at' => $media->created_at->format('Y-m-d H:i:s')
